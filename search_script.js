@@ -128,7 +128,7 @@ function getMFILevel(yearlyIncome, householdSize) {
  let incomes = _.keys(householdIncomeLimits);
  incomes.sort(function(a, b) {return a - b});
 
- console.log(incomes);
+ //console.log('income ' + incomes);
 
  for (var thisIncome of incomes) {
       if (yearlyIncome < parseInt(thisIncome)) {
@@ -138,7 +138,7 @@ function getMFILevel(yearlyIncome, householdSize) {
  }
 
  let mfi = incomeLimits[size][thisIncome];
- console.log(mfi);
+ //console.log('mfi ' +mfi);
  return mfi;
 }
 
@@ -251,14 +251,14 @@ $(document).ready(function() {
       userOptions['lang'] = $(e.target).text();
       $('.select-lang').removeClass('btn-select');
       $(e.target).addClass('btn-select');
-      console.log(userOptions);
+      //console.log(userOptions);
   });
 
   $('.select-voucher').click(function(e) {
       userOptions['section8'] = $(e.target).text();
       $('.select-voucher').removeClass('btn-select');
       $(e.target).addClass('btn-select');
-      console.log(userOptions);
+      //console.log(userOptions);
   });
 
   $('.select-public-transport').click(function(e) {
@@ -273,24 +273,24 @@ $(document).ready(function() {
 
   $('#yearly-income-input').blur(function(e) {
       userOptions['income'] = $(e.target).val();
-      console.log(userOptions);
+      //console.log(userOptions);
   });
 
   $('#household-size').blur(function(e) {
       userOptions['household-size'] = $(e.target).val();
-      console.log(userOptions);
+      //console.log(userOptions);
   });
 
   $('.options-big-btn').click(function(e) {
       if ($(e.target).data('field')) {
           var fieldVal = $(e.target).data('field');
-          console.log($(e.target).data('field'));
+          //console.log($(e.target).data('field'));
           if (!_.contains(userOptions.filters, fieldVal)) {
               userOptions.filters.push(fieldVal);
           } else {
               userOptions.filters = userOptions.filters.filter(function(x) {return x != fieldVal});
           }
-          console.log(userOptions);
+          //console.log(userOptions);
       }
 
       if ($(e.target).hasClass('btn-select')) {
@@ -363,7 +363,7 @@ function addMatchScore(property) {
       }
   }
 
-  property.data__matchScore = matchScore;
+  property.matchScore = matchScore;
 
   return property;
 }
@@ -372,14 +372,15 @@ function getAllProperties() {
   $.get(
       data_hub_api_endpoint,
       function(response) {
-          console.log(response);
-          // var propertiesTemp = response.data;
-          var propertiesTemp = response;
+          //console.log(response.data);
+          var propertiesTemp = response.data;
+          //var propertiesTemp = response;
 
           for (var property of propertiesTemp) {
-              console.log(property);
-              if (property.data__lat && property.data__longitude) {
-                  properties[property.data__id] = property;
+              //console.log(property);
+              if (property.lat && property.longitude) {
+                  properties[property.id] = property;
+
               }
           }
       }
@@ -399,12 +400,15 @@ function renderMarkers2(map) {
       let doneMatching = false;
 
       while(mfiPropertyMatches.length < 5 && !doneMatching) {
-          console.log('in while loop');
+          //console.log('in while loop');
+          //console.log(properties);
           for (var pr in properties) {
               var property = properties[pr];
-              var x = 'data__num_units_mfi_' + tempMFILevel;
+              var x = 'num_units_mfi_' + tempMFILevel;
+              //console.log(x);
+
               if (parseInt(property[x]) > 0) {
-                  mfiPropertyMatches.push(property.data__id);
+                  mfiPropertyMatches.push(property.id);
               }
               if (mfiPropertyMatches.length >= 5) {
                   doneMatching = true;
@@ -425,8 +429,8 @@ function renderMarkers2(map) {
           }
       }
 
-      console.log('anything?');
-      console.log(mfiPropertyMatches);
+      //console.log('anything?');
+      //console.log('MFI Property matches ' + mfiPropertyMatches);
   }
 
 
@@ -436,11 +440,11 @@ function renderMarkers2(map) {
   for (var p in properties) {
       var property = properties[p];
       // property = addMatchScore(property);
-      properties[property.data__id] = property;
+      properties[property.id] = property;
   }
 
   // sort desc by matchScore
-  var propertiesList = _.sortBy(properties, 'data__id');
+  var propertiesList = _.sortBy(properties, 'id');
   // var propertiesList = _.sortBy(properties, 'matchScore');
   // propertiesList = propertiesList.reverse();
 
@@ -455,34 +459,34 @@ function renderMarkers2(map) {
   // var first10 = 0;
   for (var property of propertiesList) {
       // first10 = first10 + 1;
-      // if (first10 <= 10 && property.data__matchScore > 0 && property.data__has_available_affordable_units) {
-      //     var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker("orange", "star")});
-      //     properties[property.data__id].color = 'orange';
-      // } else if (first10 <= 10 && property.data__matchScore > 0) {
-      //     var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker("green")});
-      //     properties[property.data__id].color = 'green';
+      // if (first10 <= 10 && property.matchScore > 0 && property.has_available_affordable_units) {
+      //     var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("orange", "star")});
+      //     properties[property.id].color = 'orange';
+      // } else if (first10 <= 10 && property.matchScore > 0) {
+      //     var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
+      //     properties[property.id].color = 'green';
       // } else {
 
-          if (_.contains(mfiPropertyMatches, property.data__id)) {
-              var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker("green")});
-              properties[property.data__id].color = 'green';
+          if (_.contains(mfiPropertyMatches, property.id)) {
+              var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
+              properties[property.id].color = 'green';
           } else {
-              var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker("blue")});
-              properties[property.data__id].color = 'blue';
+              var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
+              properties[property.id].color = 'blue';
           }
 
       // }
 
-      marker.markerID = property.data__id;
+      marker.markerID = property.id;
       marker.on("click", markerOnClick)
       markers.addLayer(marker);
 
-      if (property.data__has_available_affordable_units) {
-          console.log('property has available properties');
-          console.log(property);
+      if (property.has_available_affordable_units) {
+          //console.log('property has available properties');
+          //console.log(property);
           numAvailableAffordableUnits = numAvailableAffordableUnits + 1;
       }
-      if (property.data__accepts_section_8) {
+      if (property.accepts_section_8) {
           numSection8Units = numSection8Units + 1;
       }
   }
@@ -524,11 +528,11 @@ function removeSelectedMarker() {
   var map = returnMap();
   map.removeLayer(tempMarker);
 
-  // var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker(property.data__color, (property.data__color == 'orange' ? 'star' : 'home'))});
-  // var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker("blue")});
-  var marker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker(property.color)});
+  // var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker(property.color, (property.color == 'orange' ? 'star' : 'home'))});
+  // var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
+  var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker(property.color)});
   marker.on("click", markerOnClick);
-  marker.markerID = property.data__id;
+  marker.markerID = property.id;
   map.addLayer(marker);
 }
 
@@ -548,19 +552,19 @@ function markerOnClick() {
   var id = this.markerID;
   var property = properties[id];
 
-  // console.log(property);
+  // //console.log(property);
 
   tempMarkerId = id;
-  tempLat = property.data__lat;
-  tempLong = property.data__longitude;
-  tempMarker = L.marker([parseFloat(property.data__lat), parseFloat(property.data__longitude)], {icon: assignMarker("red", "heart")});
+  tempLat = property.lat;
+  tempLong = property.longitude;
+  tempMarker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("red", "heart")});
 
   var map = returnMap();
   map.removeLayer(this);
   map.addLayer(tempMarker);
 
-  console.log(id);
-  console.log(property);
+  //console.log(id);
+  //console.log(property);
 
   var div = '';
   div += `
@@ -574,26 +578,26 @@ function markerOnClick() {
 
   div += '<div id="property-details">'
 
-      div += `<div style='margin-top: 10px; font-size: 15px;'>${property.data__property_name}</div>`;
-      div += `<div style='font-size: 15px;'>${property.data__address} ${property.data__city}, ${property.data__state} ${property.data__zipcode}</div>`;
-      if (property.data__has_waitlist) {
+      div += `<div style='margin-top: 10px; font-size: 15px;'>${property.property_name}</div>`;
+      div += `<div style='font-size: 15px;'>${property.address} ${property.city}, ${property.state} ${property.zipcode}</div>`;
+      if (property.has_waitlist) {
           div += `<div class='waitlist-flag' style='font-size: 12px; width: 100px;'>WAITLIST</div>`;
       }
-      if (property.data__accepts_section_8) {
+      if (property.accepts_section_8) {
           div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS SECTION 8</div>`;
       }
 
       div += '<div class="property-details-container">'
           div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Contact Information</div>`;
           div +=  '<div class="property-details-group">';
-              if (property.data__phone) {
-                  div += `<div>Phone: ${property.data__phone}</div>`;
+              if (property.phone) {
+                  div += `<div>Phone: ${property.phone}</div>`;
               }
-              if (property.data__email) {
-                  div += `<div>Email: ${property.data__email}</div>`;
+              if (property.email) {
+                  div += `<div>Email: ${property.email}</div>`;
               }
-              if (property.data__website) {
-                  div += `<div>Website: <a href=${property.data__website} target="_blank">${property.data__website}</a></div>`;
+              if (property.website) {
+                  div += `<div>Website: <a href=${property.website} target="_blank">${property.website}</a></div>`;
               }
           div += '</div>';
       div += '</div>';
@@ -601,23 +605,23 @@ function markerOnClick() {
       div += '<div class="property-details-container">'
           div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Communities Served</div>`;
           div +=  '<div class="property-details-group">';
-              if (property.data__community_disabled) {
+              if (property.community_disabled) {
                   div += `<div>Physically Disabled Only</div>`;
               }
-              if (property.data__community_domestic_abuse_survivor) {
+              if (property.community_domestic_abuse_survivor) {
                   div += `<div>Domestic Abuse Survivor Only</div>`;
               }
-              if (property.data__community_elderly) {
+              if (property.community_elderly) {
                   div += `<div>Elderly Only</div>`;
               }
-              if (property.data__community_mental) {
+              if (property.community_mental) {
                   div += `<div>Mentally Disabled Only</div>`;
               }
-              if (property.data__community_military) {
+              if (property.community_military) {
                   div += `<div>Military Only</div>`;
               }
-              if (property.data__community_served_descriptions) {
-                  div += `<div>Other Info: ${property.data__community_served_descriptions}</div>`;
+              if (property.community_served_descriptions) {
+                  div += `<div>Other Info: ${property.community_served_descriptions}</div>`;
               }
           div += '</div>';
       div += '</div>';
@@ -625,34 +629,34 @@ function markerOnClick() {
   div += '<div class="property-details-container">'
       div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Acceptance Criteria</div>`;
       div += '<div class="property-details-group">'
-          if (property.data__broken_lease == 'no') {
+          if (property.broken_lease == 'no') {
               div += `<div>No, does not accept broken lease history</div>`;
-          } else if (property.data__broken_lease == 'yes') {
+          } else if (property.broken_lease == 'yes') {
               div += `<div>Yes, does accept broken lease history</div>`
-          } else if (property.data__broken_lease == 'depends') {
+          } else if (property.broken_lease == 'depends') {
               div += `<div>Broken lease history is accepted in some cases</div>`
-              if (property.data__broken_lease_criteria) {
-                  div += `<div>Other broken lease critiera: ${property.data__broken_lease_criteria}</div>`
+              if (property.broken_lease_criteria) {
+                  div += `<div>Other broken lease critiera: ${property.broken_lease_criteria}</div>`
               }
           }
-          if (property.data__eviction_history == 'no') {
+          if (property.eviction_history == 'no') {
               div += `<div>No, does not accept eviction history</div>`;
-          } else if (property.data__eviction_history == 'yes') {
+          } else if (property.eviction_history == 'yes') {
               div += `<div>Yes, does accept eviction history</div>`;
-          } else if (property.data__eviction_history == 'depends') {
+          } else if (property.eviction_history == 'depends') {
               div += `<div>Eviction history accepted in some cases</div>`;
-              if (property.data__eviction_history_criteria) {
-                  div += `<div>Other eviction history critiera: ${property.data__eviction_history_criteria}</div>`
+              if (property.eviction_history_criteria) {
+                  div += `<div>Other eviction history critiera: ${property.eviction_history_criteria}</div>`
               }
           }
-          if (property.data__criminal_history == 'no') {
+          if (property.criminal_history == 'no') {
               div += `<div>No, does not accept criminal history</div>`;
-          } else if (property.data__criminal_history == 'yes') {
+          } else if (property.criminal_history == 'yes') {
               div += `<div>Yes, does accept criminal history</div>`;
-          } else if (property.data__criminal_history == 'depends') {
+          } else if (property.criminal_history == 'depends') {
               div += `<div>Criminal history accepted in some cases</div>`;
-              if (property.data__criminal_history_criteria) {
-                  div += `<div>Other criminal history critiera: ${property.data__criminal_history_criteria}</div>`
+              if (property.criminal_history_criteria) {
+                  div += `<div>Other criminal history critiera: ${property.criminal_history_criteria}</div>`
               }
           }
       div += '</div>';
@@ -661,63 +665,63 @@ function markerOnClick() {
   div += '<div class="property-details-container">'
       div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Amenities</div>`
       div += '<div class="property-details-group">'
-          if (property.data__allows_pet == 'yes') {
+          if (property.allows_pet == 'yes') {
               div += `<div>Yes, pets are allowed</div>`;
-          } else if (property.data__allows_pet == 'no') {
+          } else if (property.allows_pet == 'no') {
               div += `<div>No, pets are not allowed</div>`;
           }
-          if (property.data__pet_other) {
-              div += `<div>Other pet info: ${property.data__pet_other}</div>`;
+          if (property.pet_other) {
+              div += `<div>Other pet info: ${property.pet_other}</div>`;
           }
-          if (property.data__has_air_conditioning == 1) {
+          if (property.has_air_conditioning == 1) {
               div += `<div>Air Conditioning</div>`;
-          } else if (property.data__has_air_conditioning == 0) {
+          } else if (property.has_air_conditioning == 0) {
               div += `<div>No Air Conditioning</div>`;
           }
-          if (property.data__has_ceiling_fans == 1) {
+          if (property.has_ceiling_fans == 1) {
               div += `<div>Ceiling Fans</div>`;
-          } else if (property.data__has_ceiling_fans == 0) {
+          } else if (property.has_ceiling_fans == 0) {
               div += `<div>No Ceiling Fans</div>`;
           }
-          if (property.data__wd_unit == 1) {
+          if (property.wd_unit == 1) {
               div += `<div>Washer Dryer In Unit</div>`;
-          } else if (property.data__wd_unit == 0) {
+          } else if (property.wd_unit == 0) {
               div += `<div>No Washer Dryer In Unit</div>`;
           }
-          if (property.data__wd_hookups == 1) {
+          if (property.wd_hookups == 1) {
               div += `<div>Washer Dryer Hookups</div>`;
-          } else if (property.data__wd_hookups == 0) {
+          } else if (property.wd_hookups == 0) {
               div += `<div>No Washer Dryer Hookups</div>`;
           }
-          if (property.data__wd_onsite == 1) {
+          if (property.wd_onsite == 1) {
               div += `<div>Washer Dryer Onsite</div>`;
-          } else if (property.data__wd_onsite == 0) {
+          } else if (property.wd_onsite == 0) {
               div += `<div>No Washer Dryer Onsite</div>`;
           }
-          if (property.data__wd_other) {
-              div += `<div>Other Washer / Dryer info: ${property.data__wd_other}</div>`;
+          if (property.wd_other) {
+              div += `<div>Other Washer / Dryer info: ${property.wd_other}</div>`;
           }
-          if (property.data__wd_onsite == 1) {
+          if (property.wd_onsite == 1) {
               div += `<div>Washer Dryer Onsite</div>`;
-          } else if (property.data__wd_onsite == 0) {
+          } else if (property.wd_onsite == 0) {
               div += `<div>No Washer Dryer Onsite</div>`;
           }
-          if (property.data__has_off_street_parking == 1) {
+          if (property.has_off_street_parking == 1) {
               div += `<div>Has Off Street Parking</div>`;
-          } else if (property.data__has_off_street_parking == 0) {
+          } else if (property.has_off_street_parking == 0) {
               div += `<div>No Off Street Parking</div>`;
           }
-          if (property.data__security) {
-              div += `<div>Security Information: ${property.data__security}</div>`;
+          if (property.security) {
+              div += `<div>Security Information: ${property.security}</div>`;
           }
-          if (property.data__has_pool == 1) {
+          if (property.has_pool == 1) {
               div += `<div>Yes Pool</div>`;
-          } else if (property.data__has_pool == 0) {
+          } else if (property.has_pool == 0) {
               div += `<div>No Pool</div>`;
           }
-          if (property.data__has_playground == 1) {
+          if (property.has_playground == 1) {
               div += `<div>Yes Playground</div>`;
-          } else if (property.data__has_playgound == 0) {
+          } else if (property.has_playgound == 0) {
               div += `<div>No Playground</div>`;
           }
       div += '</div>';
@@ -726,14 +730,14 @@ function markerOnClick() {
   div += '<div class="property-details-container">'
       div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Schools</div>`;
       div += '<div class="property-details-group">'
-          if (property.data__elementary_school) {
-              div += `<div>Elementary School: ${property.data__elementary_school}</div>`;
+          if (property.elementary_school) {
+              div += `<div>Elementary School: ${property.elementary_school}</div>`;
           }
-          if (property.data__middle_school) {
-              div += `<div>Middle School: ${property.data__middle_school}</div>`;
+          if (property.middle_school) {
+              div += `<div>Middle School: ${property.middle_school}</div>`;
           }
-          if (property.data__high_school) {
-              div += `<div>High School: ${property.data__high_school}</div>`;
+          if (property.high_school) {
+              div += `<div>High School: ${property.high_school}</div>`;
           }
       div += '</div>';
   div += '</div>';
