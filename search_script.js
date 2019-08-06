@@ -7,108 +7,108 @@ var map;
 // 2018 income limits effective June 1st
 var incomeLimits = {
   1: {
-      12050: 20,
-      18100: 30,
-      24100: 40,
-      30100: 50,
-      36120: 60,
-      39150: 65,
-      42150: 70,
-      48200: 80,
-      60200: 100,
-      72250: 120,
-      84300: 140
+      13250: 20,
+      19900: 30,
+      26500: 40,
+      33150: 50,
+      39780: 60,
+      43050: 65,
+      46350: 70,
+      52850: 80,
+      67150: 100,
+      80550: 120,
+      94000: 140
   },
   2: {
-      13750: 20,
-      20650: 30,
-      27500: 40,
-      34400: 50,
-      41280: 60,
-      44700: 65,
-      48150: 70,
-      55050: 80,
-      68800: 100,
-      82550: 120,
-      96300: 140
+      15150: 20,
+      22750: 30,
+      30250: 40,
+      37850: 50,
+      45420: 60,
+      49200: 65,
+      53000: 70,
+      60400: 80,
+      76700: 100,
+      92050: 120,
+      107400: 140
   },
   3: {
-      15500: 20,
-      23250: 30,
-      30950: 40,
-      38700: 50,
-      46440 : 60,
-      50300 : 65,
-      54200: 70,
-      61950 : 80,
-      77400: 100,
-      92900: 120,
-      108350: 140
+      17050: 20,
+      25600: 30,
+      34050: 40,
+      42600: 50,
+      51120 : 60,
+      55350 : 65,
+      59600: 70,
+      67950 : 80,
+      86300: 100,
+      103550: 120,
+      120850: 140
   },
   4: {
-      17200: 20,
-      25800 : 30,
-      34400: 40,
-      43000: 50,
-      51600 : 60,
-      55900 : 65,
-      60200: 70,
-      68800 : 80,
-      86000: 100,
-      103200: 120,
-      120400: 140
+      18900: 20,
+      28400 : 30,
+      37850: 40,
+      47300: 50,
+      56760 : 60,
+      61500 : 65,
+      66220: 70,
+      75500 : 80,
+      95900: 100,
+      115100: 120,
+      133450: 140
   },
   5: {
-      18600 : 20,
-      27900 : 30,
-      37150: 40,
-      46450: 50,
-      55740 : 60,
-      60350  : 65,
-      65000: 70,
-      74350 : 80,
-      92900: 100,
-      111450 : 120,
-      130050: 140
+      20450 : 20,
+      30700 : 30,
+      40850: 40,
+      51100: 50,
+      61320 : 60,
+      66400  : 65,
+      71500: 70,
+      81550 : 80,
+      103550: 100,
+      124300 : 120,
+      145000: 140
   },
   6: {
-      19950 : 20,
-      29950 : 30,
-      39900: 40,
-      49900: 50,
-      59880 : 60,
-      64850  : 65,
-      69850: 70,
-      79850 : 80,
-      99750: 100,
-      119700 : 120,
-      139650: 140
+      21950 : 20,
+      32950 : 30,
+      43900: 40,
+      54900: 50,
+      65880 : 60,
+      71350  : 65,
+      76800: 70,
+      87600 : 80,
+      111250: 100,
+      133500 : 120,
+      155750: 140
   },
   7: {
-      21350 : 20,
-      32000 : 30,
-      42650: 40,
-      53350: 50,
-      64020 : 60,
-      69300  : 65,
-      74650: 70,
-      85350 : 80,
-      106650: 100,
-      127950 : 120,
-      149300 : 140
+      23450 : 20,
+      35250 : 30,
+      46900: 40,
+      58700: 50,
+      70440 : 60,
+      76250  : 65,
+      82100: 70,
+      93650 : 80,
+      118900: 100,
+      142700 : 120,
+      166500 : 140
   },
   8: {
-      22700 : 20,
-      34100 : 30,
-      45400: 40,
-      56800: 50,
-      68160 : 60,
-      73800  : 65,
-      79450: 70,
-      90850 : 80,
-      113500: 100,
-      136200 : 120,
-      158950 : 140
+      24950 : 20,
+      37500 : 30,
+      49950: 40,
+      62450: 50,
+      74940 : 60,
+      81150  : 65,
+      87400: 70,
+      99700 : 80,
+      126600: 100,
+      151900 : 120,
+      177200 : 140
   }
 }
 
@@ -140,6 +140,19 @@ function getMFILevel(yearlyIncome, householdSize) {
  let mfi = incomeLimits[size][thisIncome];
  //console.log('mfi ' +mfi);
  return mfi;
+}
+
+function getMFILevel2(base) {
+    let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
+    if (base< 140) {
+        var found = allMfiLevels.find(function(mfi) {
+            return  mfi > base;
+        });
+    } else {
+        var found = 140;
+    }
+    //console.log('upper mfi ' +found);
+    return found;
 }
 
 $(document).ready(function() {
@@ -391,29 +404,36 @@ function renderMarkers2(map) {
 
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
+  let mfiLevel2 = getMFILevel2(mfiLevel);
   let mfiPropertyMatches = [];
+  let mfiPropertyUpperMatches = [];
   let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
 
   if (mfiLevel) {
 
       let tempMFILevel = mfiLevel;
-      let doneMatching = false;
+      let tempMFILevel2 = mfiLevel2;
+      //let doneMatching = false;
 
-      while(mfiPropertyMatches.length < 5 && !doneMatching) {
+     // while(mfiPropertyMatches.length < 5 && !doneMatching) {
           //console.log('in while loop');
           //console.log(properties);
           for (var pr in properties) {
               var property = properties[pr];
               var x = 'num_units_mfi_' + tempMFILevel;
-              //console.log(x);
+              var y = 'num_units_mfi_' + tempMFILevel2;
+              //console.log(tempMFILevel);
 
-              if (parseInt(property[x]) > 0) {
-                  mfiPropertyMatches.push(property.id);
-              }
+              if (parseInt(property[x]) > 0 ) {
+                mfiPropertyMatches.push(property.id);
+              } 
+              if (parseInt(property[y]) > 0 ) {
+                mfiPropertyUpperMatches.push(property.id);
+              }/*
               if (mfiPropertyMatches.length >= 5) {
                   doneMatching = true;
                   break;
-              }
+              }*/
           }
 
           let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
@@ -431,7 +451,7 @@ function renderMarkers2(map) {
 
       //console.log('anything?');
       //console.log('MFI Property matches ' + mfiPropertyMatches);
-  }
+ // }
 
 
 
@@ -451,7 +471,9 @@ function renderMarkers2(map) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
+console.log(mfiPropertyMatches);
 
+console.log(mfiPropertyUpperMatches);
   // TODO: need to set validation to make sure they enter this, need to add logic below to somehow filter or indicate matching indicators
   // let mfi = getMFILevel(userOptions['income'], userOptions['household-size']);
 
@@ -470,17 +492,27 @@ function renderMarkers2(map) {
           if (_.contains(mfiPropertyMatches, property.id)) {
               var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
               properties[property.id].color = 'green';
-          } else {
+              marker.markerID = property.id;
+              marker.on("click", markerOnClick)
+              markers.addLayer(marker);
+            } else if (_.contains(mfiPropertyUpperMatches, property.id)){
+                var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("orange")});
+                properties[property.id].color = 'orange';
+                marker.markerID = property.id;
+                marker.on("click", markerOnClick)
+                markers.addLayer(marker);
+            }
+          /*} else {
               var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
               properties[property.id].color = 'blue';
-          }
+          }*/
 
       // }
-
+    /*
       marker.markerID = property.id;
       marker.on("click", markerOnClick)
       markers.addLayer(marker);
-
+       */ 
       if (property.has_available_affordable_units) {
           //console.log('property has available properties');
           //console.log(property);
@@ -625,6 +657,44 @@ function markerOnClick() {
               }
           div += '</div>';
       div += '</div>';
+
+      
+      div += '<div class="property-details-container">'
+          div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Affordability Information</div>`;
+          div +=  '<div class="property-details-group">';
+              if (property.num_units_mfi_30) {
+                  div += `<div>MFI 30: ${property.num_units_mfi_30} Units</div>`;
+              }
+              if (property.num_units_mfi_40) {
+                div += `<div>MFI 40: ${property.num_units_mfi_40} Units</div>`;
+              }
+              if (property.num_units_mfi_50) {
+                div += `<div>MFI 50: ${property.num_units_mfi_50} Units</div>`;
+              }
+              if (property.num_units_mfi_60) {
+                div += `<div>MFI 60: ${property.num_units_mfi_60} Units</div>`;
+              }
+              if (property.num_units_mfi_70) {
+                div += `<div>MFI 70: ${property.num_units_mfi_70} Units</div>`;
+              }
+              if (property.num_units_mfi_80) {
+                div += `<div>MFI 80: ${property.num_units_mfi_80} Units</div>`;
+              }
+              if (property.num_units_mfi_90) {
+                div += `<div>MFI 90: ${property.num_units_mfi_90} Units</div>`;
+              }
+              if (property.num_units_mfi_100) {
+                div += `<div>MFI 100: ${property.num_units_mfi_100} Units</div>`;
+              }
+              if (property.num_units_mfi_110) {
+                div += `<div>MFI 110: ${property.num_units_mfi_110} Units</div>`;
+              }
+              if (property.num_units_mfi_120) {
+                div += `<div>MFI 120: ${property.num_units_mfi_120} Units</div>`;
+              }
+          div += '</div>';
+      div += '</div>';
+
 
   div += '<div class="property-details-container">'
       div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Acceptance Criteria</div>`;
