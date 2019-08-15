@@ -68,7 +68,7 @@
     }
     
     .padding-20 {
-        padding: 20px 20px 20px 20px;"
+        padding: 20px 20px 20px 20px;
     }
     
     .none {
@@ -266,7 +266,7 @@
         justify-content: center;
     }
     
-    .back-btn, .next-btn, .done-btn {
+    .back-btn, .next-btn, .done-btn, .skip-btn {
     /*    width: 300px;
         height: 95px;
         background-color: #cc3d3d;
@@ -399,6 +399,17 @@
         width: 100%;
     }
     
+    .wizard-claims-container {
+        /*    bottom: 150px;
+            position: absolute;
+            width: 100%;
+        */  
+            padding: 20px 200px;
+            bottom: 350px;
+            position: relative;
+            font-size: 11px;
+        }
+
     #filter-applied-banner, #map-legend-banner {
     /*    position: absolute;
         z-index: 100;
@@ -504,7 +515,7 @@
         height: 40px;
     }
     
-    #cancel-btn, #cancel-map-legend {
+    #cancel-btn, #cancel-map-legend, #hide-bottom-footer {
     /*    width: 100px;
         height: 100px;
         background-color: white;
@@ -644,6 +655,29 @@
         opacity: 0.9;
         border-top: 1px solid white;
     }
+    
+    .bottom-footer {
+        background-color: #0c2b46;
+        z-index: 10000;
+        top: 120px;
+        position: absolute;
+        height: 450px;
+        margin-bottom: 0px;
+            /*box-shadow: 3px 14px 0 rgba(0,0,0,0.4);*/
+        width: 100%;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        opacity: 0.;
+        padding: 5px;
     }
-    
-    
+
+    .bottom-footer-text {
+        text-align: left;
+        padding-top: 21px;
+        margin: 0 15px;
+        font-size: 18px;
+        color: white;
+        font-weight: 200;
+        /*letter-spacing: 5;*/
+        letter-spacing: 2;
+    }
