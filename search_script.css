@@ -266,7 +266,7 @@
         justify-content: center;
     }
     
-    .back-btn, .next-btn, .done-btn, .skip-btn {
+    .back-btn, .next-btn {
     /*    width: 300px;
         height: 95px;
         background-color: #cc3d3d;
@@ -288,6 +288,27 @@
         margin-right: 30px;
     }
     
+    
+    .done-btn {
+        width: 200px;
+        height: 35px;
+        background-color: #cc3d3d;
+        color: white;
+        border: 1px solid white;
+        border-radius: 2px;
+        font-size: 16;
+    }
+
+    .skip-btn {
+        width: 100px;
+        height: 35px;
+        background-color: #337ab7;
+        color: white;
+        border: 1px solid white;
+        border-radius: 2px;
+        font-size: 16;
+        float: right;
+    }
     #options-wizard-1 {
         display: none;
     }
@@ -515,7 +536,7 @@
         height: 40px;
     }
     
-    #cancel-btn, #cancel-map-legend, #hide-bottom-footer {
+    #cancel-btn, #cancel-map-legend {
     /*    width: 100px;
         height: 100px;
         background-color: white;
@@ -545,6 +566,23 @@
         padding: 0px;
     }
     
+    #hide-bottom-footer {
+            width: 30px;
+            height: 30px;
+            background-color: #0c2b46;
+            color: white;
+            border-color: white;
+            border:1px solid white;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 9px;
+            float: left;
+            font-weight: 500;
+            margin-right: 0;
+            margin-left: 20px;
+            padding: 0px;
+        }
+
     #property-details {
     /*    margin-left: 50px;
         margin-right: 50px;
