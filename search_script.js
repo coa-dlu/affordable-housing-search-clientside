@@ -367,7 +367,8 @@ function renderMarkers2(map,range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  //console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
+  console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
+  console.log('UpperMatches: '+ mfiPropertyUpperMatches.length);
   if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
     //console.log(markers);
     for (var property of propertiesList) {
@@ -391,7 +392,7 @@ function renderMarkers2(map,range) {
                 numSection8Units = numSection8Units + 1;
             }
         }
-  } else if(range){ //no search criteria
+  } else if(range){ //"show all" button
         for (var property of propertiesList) {
                 var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
                 properties[property.id].color = 'blue';
@@ -399,7 +400,27 @@ function renderMarkers2(map,range) {
                 marker.on("click", markerOnClick)
                 markers.addLayer(marker);
         }
-  }
+  } else {//search button with no criteria; show no match message.
+      // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "block";
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        } 
+    }
   
   map.addLayer(markers);
 }
