@@ -3,115 +3,6 @@ var userOptions = {
 }
 var properties = {};
 var map;
-
-// 2018 income limits effective June 1st
-var incomeLimits = {
-  1: {
-      13250: 20,
-      19900: 30,
-      26500: 40,
-      33150: 50,
-      39780: 60,
-      43050: 65,
-      46350: 70,
-      52850: 80,
-      67150: 100,
-      80550: 120,
-      94000: 140
-  },
-  2: {
-      15150: 20,
-      22750: 30,
-      30250: 40,
-      37850: 50,
-      45420: 60,
-      49200: 65,
-      53000: 70,
-      60400: 80,
-      76700: 100,
-      92050: 120,
-      107400: 140
-  },
-  3: {
-      17050: 20,
-      25600: 30,
-      34050: 40,
-      42600: 50,
-      51120 : 60,
-      55350 : 65,
-      59600: 70,
-      67950 : 80,
-      86300: 100,
-      103550: 120,
-      120850: 140
-  },
-  4: {
-      18900: 20,
-      28400 : 30,
-      37850: 40,
-      47300: 50,
-      56760 : 60,
-      61500 : 65,
-      66220: 70,
-      75500 : 80,
-      95900: 100,
-      115100: 120,
-      133450: 140
-  },
-  5: {
-      20450 : 20,
-      30700 : 30,
-      40850: 40,
-      51100: 50,
-      61320 : 60,
-      66400  : 65,
-      71500: 70,
-      81550 : 80,
-      103550: 100,
-      124300 : 120,
-      145000: 140
-  },
-  6: {
-      21950 : 20,
-      32950 : 30,
-      43900: 40,
-      54900: 50,
-      65880 : 60,
-      71350  : 65,
-      76800: 70,
-      87600 : 80,
-      111250: 100,
-      133500 : 120,
-      155750: 140
-  },
-  7: {
-      23450 : 20,
-      35250 : 30,
-      46900: 40,
-      58700: 50,
-      70440 : 60,
-      76250  : 65,
-      82100: 70,
-      93650 : 80,
-      118900: 100,
-      142700 : 120,
-      166500 : 140
-  },
-  8: {
-      24950 : 20,
-      37500 : 30,
-      49950: 40,
-      62450: 50,
-      74940 : 60,
-      81150  : 65,
-      87400: 70,
-      99700 : 80,
-      126600: 100,
-      151900 : 120,
-      177200 : 140
-  }
-}
-
 function getMFILevel(yearlyIncome, householdSize) {
   if (!yearlyIncome || !householdSize) {
       return null;
@@ -158,6 +49,9 @@ function getMFILevel2(base) {
 $(document).ready(function() {
   getAllProperties();
 
+  $('.bottom-footer').show();
+  $('.bottom-footer').css('height', '0px');
+  $('.bottom-footer').animate({height: '450px'}, 'slow');
   var optionsWizardNum = 1;
 
   $('.next-btn').click(function() {
@@ -203,16 +97,16 @@ $(document).ready(function() {
   $('.done-btn').click(function() {
       $('#options-wizard-' + optionsWizardNum).hide();
       optionsWizardNum = 1;
-
       // hide welcome container
+      
       $('#welcome-container').animate({height: '0%'}, 'slow', function() {
           $('.top-header').show();
           $('.top-header').css('height', '0px');
           $('.top-header').animate({height: '60px'}, 'slow');
           $('#welcome-container').hide();
       });
-
-      renderMarkers2(map);
+      
+      renderMarkers2(map,0);
 
       // show side tabs
       $('#filter-applied-banner').show();
@@ -220,6 +114,27 @@ $(document).ready(function() {
       $('#filter-applied-banner').css('width', '30px');
       $('#map-legend-banner').css('width', '30px');
   });
+
+  $('.skip-btn').click(function() {
+    $('#options-wizard-' + optionsWizardNum).hide();
+    optionsWizardNum = 1;
+
+    // hide welcome container
+    $('#welcome-container').animate({height: '0%'}, 'slow', function() {
+        $('.top-header').show();
+        $('.top-header').css('height', '0px');
+        $('.top-header').animate({height: '60px'}, 'slow');
+        $('#welcome-container').hide();
+    });
+
+    renderMarkers2(map,1);
+
+    // show side tabs
+    $('#filter-applied-banner').show();
+    $('#map-legend-banner').show();
+    $('#filter-applied-banner').css('width', '30px');
+    $('#map-legend-banner').css('width', '30px');
+});
 
   // init map
   map = initMap();
@@ -243,20 +158,25 @@ $(document).ready(function() {
       $('#map-legend-banner').animate({width: '30px'}, 'slow');
   });
 
+  $('#hide-bottom-footer').click(function() { 
+    $('.bottom-footer').hide();
+    $('.bottom-footer').animate({height: '0px'}, 'slow');
+  });
+
   $('#filter-applied-banner').click(function() {
+      location.reload(); /*
       $('#filter-applied-banner').animate({width: '0%'}, 'slow');
       $('#map-legend-banner').animate({width: '0%'}, 'slow');
       $('#filter-applied-banner').hide();
       $('#map-legend-banner').hide();
       $('.top-header').hide();
-
       $('#welcome-container').show();
       $('#welcome-container').css('height', '0%');
       $('#welcome-container').animate({'height': '100%'}, 'slow');
 
       $('#options-wizard-' + 3).show();
-      $('.done-btn').show();
-      $('.back-btn').hide();
+      $('.done-btn').show();*/
+      //$('.back-btn').hide();
       // $('.next-btn').show();
   });
 
@@ -353,6 +273,7 @@ $(document).ready(function() {
 });
 
 // score indicates degree to which property is a match, acceptence critieria (i.e. broken lease, etc.) and section 8 are prioritized in terms of weights
+/*
 function addMatchScore(property) {
   var matchScore = 0;
 
@@ -380,17 +301,15 @@ function addMatchScore(property) {
 
   return property;
 }
-
+*/
 function getAllProperties() {
   $.get(
       data_hub_api_endpoint,
       function(response) {
           //console.log(response.data);
           var propertiesTemp = response.data;
-          //var propertiesTemp = response;
 
           for (var property of propertiesTemp) {
-              //console.log(property);
               if (property.lat && property.longitude) {
                   properties[property.id] = property;
 
@@ -400,128 +319,88 @@ function getAllProperties() {
   )
 }
 
-function renderMarkers2(map) {
-
+function renderMarkers2(map,range) {
+  //console.log(range);
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
   let mfiLevel2 = getMFILevel2(mfiLevel);
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
   let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
-
+  //console.log('mfilevel: ' + mfiLevel)
   if (mfiLevel) {
+    let tempMFILevel = mfiLevel;
+    let tempMFILevel2 = mfiLevel2;
+    for (var pr in properties) {
+        var property = properties[pr];
+        var x = 'num_units_mfi_' + tempMFILevel;
+        var y = 'num_units_mfi_' + tempMFILevel2;
+        //console.log(tempMFILevel);
 
-      let tempMFILevel = mfiLevel;
-      let tempMFILevel2 = mfiLevel2;
-      //let doneMatching = false;
+        if (parseInt(property[x]) > 0 ) {
+            mfiPropertyMatches.push(property.id);
+        } 
+        if (parseInt(property[y]) > 0 ) {
+            mfiPropertyUpperMatches.push(property.id);
+        }
+    } 
 
-     // while(mfiPropertyMatches.length < 5 && !doneMatching) {
-          //console.log('in while loop');
-          //console.log(properties);
-          for (var pr in properties) {
-              var property = properties[pr];
-              var x = 'num_units_mfi_' + tempMFILevel;
-              var y = 'num_units_mfi_' + tempMFILevel2;
-              //console.log(tempMFILevel);
+    let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
+        return mfi == tempMFILevel;
+    });
 
-              if (parseInt(property[x]) > 0 ) {
-                mfiPropertyMatches.push(property.id);
-              } 
-              if (parseInt(property[y]) > 0 ) {
-                mfiPropertyUpperMatches.push(property.id);
-              }/*
-              if (mfiPropertyMatches.length >= 5) {
-                  doneMatching = true;
-                  break;
-              }*/
-          }
+    var tempMFILevelIndex = mfiLevelIndex + 1;
 
-          let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
-              return mfi == tempMFILevel;
-          });
-
-          var tempMFILevelIndex = mfiLevelIndex + 1;
-
-          if (tempMFILevelIndex > (allMfiLevels.length - 1)) {
-              doneMatching = true;
-          } else {
-              tempMFILevel = allMfiLevels[tempMFILevelIndex];
-          }
-      }
-
-      //console.log('anything?');
-      //console.log('MFI Property matches ' + mfiPropertyMatches);
- // }
-
-
-
+    if (tempMFILevelIndex > (allMfiLevels.length - 1)) {
+        doneMatching = true;
+    } else {
+        tempMFILevel = allMfiLevels[tempMFILevelIndex];
+    }
+} 
   var markers = new L.FeatureGroup();
-
   for (var p in properties) {
       var property = properties[p];
-      // property = addMatchScore(property);
       properties[property.id] = property;
   }
 
-  // sort desc by matchScore
   var propertiesList = _.sortBy(properties, 'id');
-  // var propertiesList = _.sortBy(properties, 'matchScore');
-  // propertiesList = propertiesList.reverse();
-
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-console.log(mfiPropertyMatches);
-
-console.log(mfiPropertyUpperMatches);
-  // TODO: need to set validation to make sure they enter this, need to add logic below to somehow filter or indicate matching indicators
-  // let mfi = getMFILevel(userOptions['income'], userOptions['household-size']);
-
-  // first 10 'highest' matches are marked as recommended
-  // var first10 = 0;
-  for (var property of propertiesList) {
-      // first10 = first10 + 1;
-      // if (first10 <= 10 && property.matchScore > 0 && property.has_available_affordable_units) {
-      //     var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("orange", "star")});
-      //     properties[property.id].color = 'orange';
-      // } else if (first10 <= 10 && property.matchScore > 0) {
-      //     var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
-      //     properties[property.id].color = 'green';
-      // } else {
-
-          if (_.contains(mfiPropertyMatches, property.id)) {
-              var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
-              properties[property.id].color = 'green';
-              marker.markerID = property.id;
-              marker.on("click", markerOnClick)
-              markers.addLayer(marker);
-            } else if (_.contains(mfiPropertyUpperMatches, property.id)){
-                var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("orange")});
-                properties[property.id].color = 'orange';
+  //console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
+  if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
+    //console.log(markers);
+    for (var property of propertiesList) {
+            if (_.contains(mfiPropertyMatches, property.id)) {
+                var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
+                properties[property.id].color = 'green';
                 marker.markerID = property.id;
                 marker.on("click", markerOnClick)
                 markers.addLayer(marker);
+                } else if (_.contains(mfiPropertyUpperMatches, property.id)){
+                    var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("orange")});
+                    properties[property.id].color = 'orange';
+                    marker.markerID = property.id;
+                    marker.on("click", markerOnClick)
+                    markers.addLayer(marker);
+                } 
+            if (property.has_available_affordable_units) {
+                numAvailableAffordableUnits = numAvailableAffordableUnits + 1;
             }
-          /*} else {
-              var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
-              properties[property.id].color = 'blue';
-          }*/
-
-      // }
-    /*
-      marker.markerID = property.id;
-      marker.on("click", markerOnClick)
-      markers.addLayer(marker);
-       */ 
-      if (property.has_available_affordable_units) {
-          //console.log('property has available properties');
-          //console.log(property);
-          numAvailableAffordableUnits = numAvailableAffordableUnits + 1;
-      }
-      if (property.accepts_section_8) {
-          numSection8Units = numSection8Units + 1;
-      }
+            if (property.accepts_section_8) {
+                numSection8Units = numSection8Units + 1;
+            }
+        }
+  } else if(range){ //no search criteria
+        for (var property of propertiesList) {
+                var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
+                properties[property.id].color = 'blue';
+                marker.markerID = property.id;
+                marker.on("click", markerOnClick)
+                markers.addLayer(marker);
+        }
   }
+  
   map.addLayer(markers);
 }
 
@@ -539,7 +418,6 @@ function initTitleLayer() {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox.streets',
-      // accessToken: 'pk.eyJ1Ijoicm1hdGh1cjEwMSIsImEiOiJjajg3a3I0cjIwb2lqMndtdGVtaWx1ZjZrIn0.iEel0XmzyrU4fz78lEQ3GQ'
       accessToken: mapbox_public_key
   });
 }
@@ -560,8 +438,6 @@ function removeSelectedMarker() {
   var map = returnMap();
   map.removeLayer(tempMarker);
 
-  // var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker(property.color, (property.color == 'orange' ? 'star' : 'home'))});
-  // var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("blue")});
   var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker(property.color)});
   marker.on("click", markerOnClick);
   marker.markerID = property.id;

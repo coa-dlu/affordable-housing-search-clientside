@@ -170,6 +170,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class='justify-center' style='margin-top: 20px;'>
+                                <button class='done-btn'>PERSONALIZED SEARCH</button> 
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -357,13 +360,59 @@
                 </div>
             </div>
 
+            <div id='options-wizard-10' style='margin-bottom: 350px;'>
+                <br/>
+
+                <div class='justify-center'>
+                   <div id='welcome-header' style='text-align: center;'>FOOD</div>
+                </div>
+
+                <div class='justify-center' style='margin-top: 10px;'>
+                    <div>
+                        <span class='options-wizard-question-text justify-center'>Is it important that you have a grocery store within walking distance from your home?</span>
+                        <div style='margin-top: 10px;' class='justify-center'>
+                            <div class='justify-center' style='margin-top: 0px;'>
+                                <div>
+                                    <div class='justify-center'>
+                                        <button style='width: 210px;' class='select-grocery'>NOT IMPORTANT</button>
+                                    </div>
+                                    <div class='justify-center'>
+                                        <button style='width: 210px;' class='select-grocery'>SOMEWHAT IMPORTANT</button>
+                                    </div>
+                                    <div class='justify-center'>
+                                        <button style='width: 210px;' class='select-grocery'>VERY IMPORTANT</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ----------------------------------------------- -->
             <div class='justify-center wizard-btns-container'>
                 <div class='justify-center'>
-                    <button class='back-btn' style='display: none;'>BACK</button>
-                    <!-- <button class='next-btn'>NEXT</button> -->
-                    <button class='done-btn'>DONE</button>
+                    <!-- <button class='back-btn' style='display: none;'>BACK</button>
+                    <button class='done-btn'>PERSONALIZED SEARCH</button> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <button class='skip-btn'>SHOW ALL</button>
                 </div>
+            </div>
+
+            <!-------Welcome text and Disclaimer --------- -->
+            <div class="bottom-footer" style='height: 0%; display: none;'>
+                <div>&nbsp;</div>
+                <h4>&nbsp;</h4>
+                    <div  class='bottom-footer-text'>
+
+                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and family size according to the Department of Housing and Urban Development (<a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new">Link</a>). Each property also has detailed information that helps prospective tenants find housing that best meets their needs. 
+                    <br/><br/>
+                    
+                    Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data. 
+                    
+                    </div>
+                    <div>&nbsp;</div>
+                    <span class='bottom-footer-text'><button id='hide-bottom-footer'>&#10004;</button> I understand</span>
             </div>
         </div>
 
@@ -407,6 +456,12 @@
                 <div style='margin-top: 20px;'>Recommended (upper level) </div>
             </div>
             <div style='margin-left: 50px;'>
+                <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
+                    <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
+                </div>
+                <div style='margin-top: 20px;'>Affordable property</div>
+            </div>
+            <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: red; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-heart icon-white"></i>
                 </div>
@@ -435,6 +490,7 @@
         <!-- my search files -->
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
         <script type="text/javascript" language="javascript" src="mapbox_public_key.js"></script>
+        <script type="text/javascript" language="javascript" src="mfi.js"></script>
         <script type="text/javascript" language="javascript" src="search_script.js"></script>
 
 
