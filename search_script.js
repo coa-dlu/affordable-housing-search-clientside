@@ -4,7 +4,7 @@ var userOptions = {
 var properties = {};
 var map;
 function getMFILevel(yearlyIncome, householdSize) {
-  if (!yearlyIncome || !householdSize) {
+  if (!yearlyIncome || !householdSize || householdSize === 0) {
       return null;
   }
 
@@ -25,8 +25,11 @@ function getMFILevel(yearlyIncome, householdSize) {
           break;
       }
  }
-
- let mfi = incomeLimits[size][thisIncome];
+ if (size < 1) {
+    var mfi = 200;
+ } else {
+    var mfi = incomeLimits[size][thisIncome];
+ }
  return mfi;
 }
 
