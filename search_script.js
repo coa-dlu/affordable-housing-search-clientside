@@ -19,8 +19,6 @@ function getMFILevel(yearlyIncome, householdSize) {
  let incomes = _.keys(householdIncomeLimits);
  incomes.sort(function(a, b) {return a - b});
 
- //console.log('income ' + incomes);
-
  for (var thisIncome of incomes) {
       if (yearlyIncome < parseInt(thisIncome)) {
           income = thisIncome;
@@ -29,7 +27,6 @@ function getMFILevel(yearlyIncome, householdSize) {
  }
 
  let mfi = incomeLimits[size][thisIncome];
- //console.log('mfi ' +mfi);
  return mfi;
 }
 
@@ -42,7 +39,6 @@ function getMFILevel2(base) {
     } else {
         var found = 140;
     }
-    //console.log('upper mfi ' +found);
     return found;
 }
 
@@ -98,7 +94,6 @@ $(document).ready(function() {
       $('#options-wizard-' + optionsWizardNum).hide();
       optionsWizardNum = 1;
       // hide welcome container
-      
       $('#welcome-container').animate({height: '0%'}, 'slow', function() {
           $('.top-header').show();
           $('.top-header').css('height', '0px');
@@ -184,14 +179,12 @@ $(document).ready(function() {
       userOptions['lang'] = $(e.target).text();
       $('.select-lang').removeClass('btn-select');
       $(e.target).addClass('btn-select');
-      //console.log(userOptions);
   });
 
   $('.select-voucher').click(function(e) {
       userOptions['section8'] = $(e.target).text();
       $('.select-voucher').removeClass('btn-select');
       $(e.target).addClass('btn-select');
-      //console.log(userOptions);
   });
 
   $('.select-public-transport').click(function(e) {
@@ -206,24 +199,20 @@ $(document).ready(function() {
 
   $('#yearly-income-input').blur(function(e) {
       userOptions['income'] = $(e.target).val();
-      //console.log(userOptions);
   });
 
   $('#household-size').blur(function(e) {
       userOptions['household-size'] = $(e.target).val();
-      //console.log(userOptions);
   });
 
   $('.options-big-btn').click(function(e) {
       if ($(e.target).data('field')) {
           var fieldVal = $(e.target).data('field');
-          //console.log($(e.target).data('field'));
           if (!_.contains(userOptions.filters, fieldVal)) {
               userOptions.filters.push(fieldVal);
           } else {
               userOptions.filters = userOptions.filters.filter(function(x) {return x != fieldVal});
           }
-          //console.log(userOptions);
       }
 
       if ($(e.target).hasClass('btn-select')) {
@@ -306,7 +295,6 @@ function getAllProperties() {
   $.get(
       data_hub_api_endpoint,
       function(response) {
-          //console.log(response.data);
           var propertiesTemp = response.data;
 
           for (var property of propertiesTemp) {
@@ -320,31 +308,36 @@ function getAllProperties() {
 }
 
 function renderMarkers2(map,range) {
-  //console.log(range);
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
   let mfiLevel2 = getMFILevel2(mfiLevel);
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
   let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
-  //console.log('mfilevel: ' + mfiLevel)
   if (mfiLevel) {
     let tempMFILevel = mfiLevel;
     let tempMFILevel2 = mfiLevel2;
-    for (var pr in properties) {
+    for (var pr in properties) { 
         var property = properties[pr];
         var x = 'num_units_mfi_' + tempMFILevel;
         var y = 'num_units_mfi_' + tempMFILevel2;
-        //console.log(tempMFILevel);
-
-        if (parseInt(property[x]) > 0 ) {
-            mfiPropertyMatches.push(property.id);
-        } 
-        if (parseInt(property[y]) > 0 ) {
-            mfiPropertyUpperMatches.push(property.id);
+        if (userOptions.section8==='YES') {//visitor has voucher. show all properties that accept voucher.
+            if (parseInt(property[x]) > 0 || (property.accepts_section_8===1) ) {
+                mfiPropertyMatches.push(property.id);
+            } else if (parseInt(property[y]) > 0 ) {
+                mfiPropertyUpperMatches.push(property.id);
+            }
+        } else { //visitor has no voucher. only show matches and upper level property
+            if (parseInt(property[x]) > 0 ) {
+                mfiPropertyMatches.push(property.id);
+            } 
+            if (parseInt(property[y]) > 0 ) {
+                mfiPropertyUpperMatches.push(property.id);
+            }
         }
     } 
-
+    //console.log('match '+ mfiPropertyMatches);
+    //console.log('Upper '+ mfiPropertyUpperMatches);
     let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
         return mfi == tempMFILevel;
     });
@@ -367,10 +360,9 @@ function renderMarkers2(map,range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
-  console.log('UpperMatches: '+ mfiPropertyUpperMatches.length);
+  //console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
+  //console.log('UpperMatches: '+ mfiPropertyUpperMatches.length);
   if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
-    //console.log(markers);
     for (var property of propertiesList) {
             if (_.contains(mfiPropertyMatches, property.id)) {
                 var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
@@ -481,8 +473,6 @@ function markerOnClick() {
   var id = this.markerID;
   var property = properties[id];
 
-  // //console.log(property);
-
   tempMarkerId = id;
   tempLat = property.lat;
   tempLong = property.longitude;
@@ -491,9 +481,6 @@ function markerOnClick() {
   var map = returnMap();
   map.removeLayer(this);
   map.addLayer(tempMarker);
-
-  //console.log(id);
-  //console.log(property);
 
   var div = '';
   div += `
