@@ -264,7 +264,7 @@ $(document).ready(function() {
   });
 });
 
-// score indicates degree to which property is a match, acceptence critieria (i.e. broken lease, etc.) and section 8 are prioritized in terms of weights
+// score indicates degree to which property is a match, acceptence critieria (i.e. broken lease, etc.) and section 8 (Housing Choice) are prioritized in terms of weights
 /*
 function addMatchScore(property) {
   var matchScore = 0;
@@ -503,7 +503,7 @@ function markerOnClick() {
           div += `<div class='waitlist-flag' style='font-size: 12px; width: 100px;'>WAITLIST</div>`;
       }
       if (property.accepts_section_8) {
-          div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS SECTION 8</div>`;
+          div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS Housing Choice</div>`;
       }
 
       div += '<div class="property-details-container">'
