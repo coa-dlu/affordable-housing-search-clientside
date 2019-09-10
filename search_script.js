@@ -5,7 +5,7 @@ var properties = {};
 var map;
 function getMFILevel(yearlyIncome, householdSize) {
   if (!yearlyIncome || !householdSize || householdSize === 0) {
-      return null;
+      return 0;
   }
 
   let size = householdSize;
@@ -20,16 +20,18 @@ function getMFILevel(yearlyIncome, householdSize) {
  incomes.sort(function(a, b) {return a - b});
 
  for (var thisIncome of incomes) {
-      if (yearlyIncome < parseInt(thisIncome)) {
+      if (yearlyIncome >= parseInt(thisIncome)) {
           income = thisIncome;
-          break;
-      }
+      } else {break;}
  }
  if (size < 1) {
     var mfi = 200;
+ } else if (income === 0) {
+    var mfi=20;
  } else {
-    var mfi = incomeLimits[size][thisIncome];
+    var mfi = incomeLimits[size][income];
  }
+ console.log('mfi: ' + mfi)
  return mfi;
 }
 
@@ -314,6 +316,7 @@ function renderMarkers2(map,range) {
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
   let mfiLevel2 = getMFILevel2(mfiLevel);
+  console.log(mfiLevel + ","+mfiLevel2);
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
   let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
@@ -352,7 +355,15 @@ function renderMarkers2(map,range) {
     } else {
         tempMFILevel = allMfiLevels[tempMFILevelIndex];
     }
-} 
+} else if (userOptions.section8==='YES')  {
+    console.log('here');
+    for (var pr in properties) { 
+        var property = properties[pr];
+        if (property.accepts_section_8===1) {
+            mfiPropertyMatches.push(property.id);
+        } 
+    }
+}
   var markers = new L.FeatureGroup();
   for (var p in properties) {
       var property = properties[p];
