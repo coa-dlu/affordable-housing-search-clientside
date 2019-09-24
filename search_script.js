@@ -20,9 +20,10 @@ function getMFILevel(yearlyIncome, householdSize) {
  incomes.sort(function(a, b) {return a - b});
 
  for (var thisIncome of incomes) {
-      if (yearlyIncome >= parseInt(thisIncome)) {
+      if (yearlyIncome <= parseInt(thisIncome)) {
           income = thisIncome;
-      } else {break;}
+          break;
+      }
  }
  if (size < 1) {
     var mfi = 200;
@@ -36,7 +37,8 @@ function getMFILevel(yearlyIncome, householdSize) {
 }
 
 function getMFILevel2(base) {
-    let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
+    //let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
+    let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
     if (base< 140) {
         var found = allMfiLevels.find(function(mfi) {
             return  mfi > base;
@@ -319,7 +321,8 @@ function renderMarkers2(map,range) {
   console.log(mfiLevel + ","+mfiLevel2);
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
-  let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
+  //let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
+  let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
   if (mfiLevel) {
     let tempMFILevel = mfiLevel;
     let tempMFILevel2 = mfiLevel2;
@@ -356,7 +359,7 @@ function renderMarkers2(map,range) {
         tempMFILevel = allMfiLevels[tempMFILevelIndex];
     }
 } else if (userOptions.section8==='YES')  {
-    console.log('here');
+    //console.log('here');
     for (var pr in properties) { 
         var property = properties[pr];
         if (property.accepts_section_8===1) {
