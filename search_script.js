@@ -32,7 +32,7 @@ function getMFILevel(yearlyIncome, householdSize) {
  } else {
     var mfi = incomeLimits[size][income];
  }
- console.log('mfi: ' + mfi)
+ //console.log('mfi: ' + mfi)
  return mfi;
 }
 
@@ -318,7 +318,7 @@ function renderMarkers2(map,range) {
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
   let mfiLevel2 = getMFILevel2(mfiLevel);
-  console.log(mfiLevel + ","+mfiLevel2);
+  console.log("mfi: " + mfiLevel + ", upper mfi: "+mfiLevel2);
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
   //let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
@@ -330,10 +330,22 @@ function renderMarkers2(map,range) {
         var property = properties[pr];
         var x = 'num_units_mfi_' + tempMFILevel;
         var y = 'num_units_mfi_' + tempMFILevel2;
-        if (userOptions.section8==='YES') {//visitor has voucher. show all properties that accept voucher.
-            if (parseInt(property[x]) > 0 || (property.accepts_section_8===1) ) {
+        if (userOptions.section8==='YES') {//visitor has voucher. show all properties that accept voucher and has higher than their MFI level units
+            if (parseInt(property[x]) > 0 ) {//matching units
                 mfiPropertyMatches.push(property.id);
-            } else if (parseInt(property[y]) > 0 ) {
+            } else if (property.accepts_section_8===1) { //no units in current level but  property accepts voucher 
+                let allMfi = [40, 50, 60, 65, 80];
+                for (l in allMfi) {
+                    if (allMfi[l] > tempMFILevel) {
+                        var z = 'num_units_mfi_' + allMfi[l];
+                        if (parseInt(property[z]) > 0 ) {
+                        mfiPropertyMatches.push(property.id);
+                        break;
+                        }
+                    }
+                }
+                //show places with vouchers that has unites in higher MFI levels in green 
+            } else if (parseInt(property[y]) > 0 ) { //matching units in upper level
                 mfiPropertyUpperMatches.push(property.id);
             }
         } else { //visitor has no voucher. only show matches and upper level property
@@ -359,7 +371,6 @@ function renderMarkers2(map,range) {
         tempMFILevel = allMfiLevels[tempMFILevelIndex];
     }
 } else if (userOptions.section8==='YES')  {
-    //console.log('here');
     for (var pr in properties) { 
         var property = properties[pr];
         if (property.accepts_section_8===1) {
@@ -409,8 +420,8 @@ function renderMarkers2(map,range) {
                 marker.on("click", markerOnClick)
                 markers.addLayer(marker);
         }
-  } else {//search button with no criteria; show no match message.
-      // Get the modal
+  } else {  //search button with no criteria; show no match message.
+        // Get the modal
         var modal = document.getElementById("myModal");
 
         // Get the <span> element that closes the modal
@@ -575,23 +586,14 @@ function markerOnClick() {
               if (property.num_units_mfi_60) {
                 div += `<div>MFI 60: ${property.num_units_mfi_60} Units</div>`;
               }
+              if (property.num_units_mfi_65) {
+                div += `<div>MFI 65: ${property.num_units_mfi_65} Units</div>`;
+              }
               if (property.num_units_mfi_70) {
                 div += `<div>MFI 70: ${property.num_units_mfi_70} Units</div>`;
               }
               if (property.num_units_mfi_80) {
                 div += `<div>MFI 80: ${property.num_units_mfi_80} Units</div>`;
-              }
-              if (property.num_units_mfi_90) {
-                div += `<div>MFI 90: ${property.num_units_mfi_90} Units</div>`;
-              }
-              if (property.num_units_mfi_100) {
-                div += `<div>MFI 100: ${property.num_units_mfi_100} Units</div>`;
-              }
-              if (property.num_units_mfi_110) {
-                div += `<div>MFI 110: ${property.num_units_mfi_110} Units</div>`;
-              }
-              if (property.num_units_mfi_120) {
-                div += `<div>MFI 120: ${property.num_units_mfi_120} Units</div>`;
               }
           div += '</div>';
       div += '</div>';
