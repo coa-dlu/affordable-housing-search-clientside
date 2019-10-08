@@ -25,19 +25,17 @@ function getMFILevel(yearlyIncome, householdSize) {
           break;
       }
  }
- if (size < 1) {
+ if (size < 1 || income < yearlyIncome) {
     var mfi = 200;
  } else if (income === 0) {
     var mfi=20;
  } else {
     var mfi = incomeLimits[size][income];
  }
- //console.log('mfi: ' + mfi)
  return mfi;
 }
 
 function getMFILevel2(base) {
-    //let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
     let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
     if (base< 140) {
         var found = allMfiLevels.find(function(mfi) {
@@ -54,48 +52,8 @@ $(document).ready(function() {
 
   $('.bottom-footer').show();
   $('.bottom-footer').css('height', '0px');
-  $('.bottom-footer').animate({height: '450px'}, 'slow');
+  $('.bottom-footer').animate({height: '600px'}, 'slow');
   var optionsWizardNum = 1;
-
-  $('.next-btn').click(function() {
-      $('#options-wizard-' + optionsWizardNum).hide();
-      optionsWizardNum = optionsWizardNum + 1;
-
-      // skip schools for now
-      if (optionsWizardNum == 7) {
-          optionsWizardNum = optionsWizardNum + 1;
-      }
-      $('#options-wizard-' + optionsWizardNum).show();
-
-      if (optionsWizardNum > 1) {
-          $('.back-btn').show();
-      }
-
-      if (optionsWizardNum == 10) {
-          $('.next-btn').hide();
-          $('.done-btn').show();
-      }
-  });
-
-  $('.back-btn').click(function() {
-      $('#options-wizard-' + optionsWizardNum).hide();
-      optionsWizardNum = optionsWizardNum - 1;
-
-      // skip schools for now
-      if (optionsWizardNum == 7) {
-          optionsWizardNum = optionsWizardNum - 1;
-      }
-      $('#options-wizard-' + optionsWizardNum).show();
-
-      if (optionsWizardNum < 2) {
-          $('.back-btn').hide();
-      }
-
-      if (optionsWizardNum != 10) {
-          $('.next-btn').show();
-          $('.done-btn').hide();
-      }
-  });
 
   $('.done-btn').click(function() {
       $('#options-wizard-' + optionsWizardNum).hide();
@@ -166,20 +124,7 @@ $(document).ready(function() {
   });
 
   $('#filter-applied-banner').click(function() {
-      location.reload(); /*
-      $('#filter-applied-banner').animate({width: '0%'}, 'slow');
-      $('#map-legend-banner').animate({width: '0%'}, 'slow');
-      $('#filter-applied-banner').hide();
-      $('#map-legend-banner').hide();
-      $('.top-header').hide();
-      $('#welcome-container').show();
-      $('#welcome-container').css('height', '0%');
-      $('#welcome-container').animate({'height': '100%'}, 'slow');
-
-      $('#options-wizard-' + 3).show();
-      $('.done-btn').show();*/
-      //$('.back-btn').hide();
-      // $('.next-btn').show();
+      location.reload(); 
   });
 
   $('.select-lang').click(function(e) {
@@ -268,36 +213,6 @@ $(document).ready(function() {
   });
 });
 
-// score indicates degree to which property is a match, acceptence critieria (i.e. broken lease, etc.) and section 8 (Housing Choice) are prioritized in terms of weights
-/*
-function addMatchScore(property) {
-  var matchScore = 0;
-
-  for (var f of userOptions.filters) {
-      if (_.contains(['broken_lease', 'eviction_history', 'criminal_history'], f)) {
-          if (property[f] == 'yes') {
-              matchScore = matchScore + 10;
-          } else if (property[f] == 'depends') {
-              matchScore = matchScore + 5;
-          }
-      } else {
-          if (property[f] == 1) {
-              matchScore = matchScore + 10;
-          }
-      }
-  }
-
-  if (userOptions.section8 == 'YES') {
-      if (property['accepts_section_8'] == 1) {
-          matchScore = matchScore + 25;
-      }
-  }
-
-  property.matchScore = matchScore;
-
-  return property;
-}
-*/
 function getAllProperties() {
   $.get(
       data_hub_api_endpoint,
@@ -317,11 +232,13 @@ function getAllProperties() {
 function renderMarkers2(map,range) {
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
-  let mfiLevel2 = getMFILevel2(mfiLevel);
-  console.log("mfi: " + mfiLevel + ", upper mfi: "+mfiLevel2);
+  if (mfiLevel===200) { 
+      var mfiLevel2 = 200;
+  }  else {
+    var mfiLevel2 = getMFILevel2(mfiLevel);
+  }
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
-  //let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
   let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
   if (mfiLevel) {
     let tempMFILevel = mfiLevel;
@@ -357,8 +274,6 @@ function renderMarkers2(map,range) {
             }
         }
     } 
-    //console.log('match '+ mfiPropertyMatches);
-    //console.log('Upper '+ mfiPropertyUpperMatches);
     let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
         return mfi == tempMFILevel;
     });
@@ -388,8 +303,6 @@ function renderMarkers2(map,range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  //console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
-  //console.log('UpperMatches: '+ mfiPropertyUpperMatches.length);
   if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
     for (var property of propertiesList) {
             if (_.contains(mfiPropertyMatches, property.id)) {
