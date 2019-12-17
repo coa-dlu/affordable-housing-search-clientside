@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
         <link rel="stylesheet" href="Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
 
-        
+
         <link href="search_script.css" rel="stylesheet" />
     </head>
 
@@ -28,111 +28,23 @@
             <h4 class="top-header-title">AFFORDABLE HOUSING AUSTIN</h4>
         </div>
 
-        <!-- Trigger/Open The Modal 
+        <!-- Trigger/Open The Modal
         <button id="myBtn">Open Modal</button>-->
-        
+
         <!-- The Modal -->
-        <div id="myModal" class="modal">        
+        <div id="myModal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">
                   <span class="close">&times;</span>
                   <p>There are no matching properties.</p>
                 </div>
-              
-        </div> 
+
+        </div>
         <div id='welcome-container'>
             <div style='display: flex; justify-content: center;'>
                 <div id='welcome-title'>AUSTIN AFFORDABLE HOUSING</div>
             </div>
 
-            <div id='options-wizard-1' style='margin-bottom: 350px;'>
-                <br/>
-                <div style='display: flex; justify-content: center; margin-top: 20px;'>
-                   <div id='welcome-header'>WELCOME</div>
-                </div>
-                <div style='display: flex; justify-content: center;'>
-                   <div style='margin-top: 50px;'>
-                        <div class='justify-center'>
-                            <span id='select-lang-header'>Please Select Language: </span>
-                        </div>
-                        <div class='justify-center'>
-                            <button class='select-lang'>English</button>
-                        </div>
-                        <div class='justify-center'>
-                            <button class='select-lang'>Espanol</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-2' style='margin-bottom: 130px;'>
-                <br/>
-                <div class='justify-center'>
-                   <div id='welcome-header'>BASIC INFO</div>
-                </div>
-
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text'>How many people are in your household, including yourself?</span>
-                        <div>
-                            <div class='justify-center' style='margin-top: 10px;'>
-                                <button class='options-wizard-plus-minus-btn'>-</button>
-                                <span class='options-wizard-plus-minus-val'>0</span>
-                                <button class='options-wizard-plus-minus-btn'>+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                        <div>
-                            <span class='options-wizard-question-text'>How many children (under 18) are in your household?</span>
-                            <div class='justify-center' style='margin-top: 10px;'>
-                                <button class='options-wizard-plus-minus-btn'>-</button>
-                                <span class='options-wizard-plus-minus-val'>0</span>
-                                <button class='options-wizard-plus-minus-btn'>+</button>
-                            </div>
-                        </div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text'>How many seniors (65+) are in your household?</span>
-                        <div class='justify-center' style='margin-top: 10px;'>
-                            <button class='options-wizard-plus-minus-btn'>-</button>
-                            <span class='options-wizard-plus-minus-val'>0</span>
-                            <button class='options-wizard-plus-minus-btn'>+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text'>How many beds are required?</span>
-                        <div class='justify-center' style='margin-top: 10px;'>
-                            <div class='justify-center'>
-                                <button class='options-wizard-plus-minus-btn'>-</button>
-                                <span class='options-wizard-plus-minus-val'>0</span>
-                                <button class='options-wizard-plus-minus-btn'>+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text'>How many baths are required?</span>
-                        <div class='justify-center' style='margin-top: 10px;'>
-                            <div class='justify-center'>
-                                <button class='options-wizard-plus-minus-btn'>-</button>
-                                <span class='options-wizard-plus-minus-val'>0</span>
-                                <button class='options-wizard-plus-minus-btn'>+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div id='options-wizard-3' style='margin-bottom: 350px;'>
                 <br/>
@@ -170,7 +82,7 @@
                     <div class='justify-center'>
                         <div>
                             <span class='justify-center'>
-                                <span class='options-wizard-question-text justify-center'>Do you have a section 8 voucher?</span>
+                                <span class='options-wizard-question-text justify-center'>Do you have a Housing Choice voucher?</span>
                             </span>
                             <div class='justify-center' style='margin-top: 0px;'>
                                 <div>
@@ -183,233 +95,16 @@
                                 </div>
                             </div>
                             <div class='justify-center' style='margin-top: 20px;'>
-                                <button class='done-btn'>PERSONALIZED SEARCH</button> 
-                            </div>                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-4' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header'>CRITERIA</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Select any options below that describe you    :</span>
-                        <div>
-                            <div style='margin-top: 10px;'>
-                                <button data-field='students_only' class='options-big-btn'>Student</button>
-                                <button data-field='community_elderly' class='options-big-btn'>Senior (65+)</button>
-                                <button data-field='community_disabled' class='options-big-btn'>Physically Disabled</button>
-                                <button data-field='community_mental' class='options-big-btn'>Mentally Disabled</button>
-                                <button data-field='community_veteran' class='options-big-btn'>Veteran</button>
-                                <button data-field='community_military' class='options-big-btn'>Military</button>
-                                <button style='font-size: 13px;' data-field='community_domestic_abuse_survivor' class='options-big-btn'>Domestic Abuse Survivor</button>
+                                <button class='done-btn'>PERSONALIZED SEARCH</button>
+                            </div>
+                            <div class='justify-center' style='margin-top: 100px;'>
+                                <button class='skip-btn'>SHOW ALL</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id='options-wizard-5' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header'>FILTERS</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Which of the following are important to you when looking for housing? Select all that apply: </span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div>
-                                <button class='options-big-btn'>Amenities</button>
-                                <button class='options-big-btn'>Public Schools</button>
-                                <button class='options-big-btn'>Acceptance Criteria</button>
-                                <button class='options-big-btn'>Parks</button>
-                                <button class='options-big-btn'>Communities Served</button>
-                                <button class='options-big-btn'>Public Transit</button>
-                                <button class='options-big-btn'>Neighborhood</button>
-                                <button class='options-big-btn'>Grocery</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id='options-wizard-6' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header'>AMENITIES</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Select the amenities that you need your housing to have.</span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div>
-                                <button class='options-big-btn'>Playground</button>
-                                <button class='options-big-btn'>Pool</button>
-                                <button class='options-big-btn'>Off-Street Parking</button>
-                                <button class='options-big-btn'>Air Conditioning</button>
-                                <button class='options-big-btn'>Ceiling Fans</button>
-                                <button class='options-big-btn'>In-Unit Washer/Dryer</button>
-                                <button class='options-big-btn'>Washer/Dryer Hookups</button>
-                                <button class='options-big-btn'>Washer/Dryer Onsite</button>
-                                <button class='options-big-btn'>Pets Allowed</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-7' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header'>SCHOOLS</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Select any school preferences.</span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div>
-                                <button class='options-big-btn'>Akins High</button>
-                                <button class='options-big-btn'>Allison Elementary</button>
-                                <button class='options-big-btn'>Anderson High</button>
-                                <button class='options-big-btn'>Andrews Elementary</button>
-                                <button class='options-big-btn'>Austin High</button>
-                                <button class='options-big-btn'>Bailey Middle</button>
-                                <button class='options-big-btn'>Baldwin Elementary</button>
-                                <button class='options-big-btn'>Baranoff Elementary</button>
-                                <button class='options-big-btn'>Barabara Jordan Elementary</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-8' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header' style='text-align: center;'>ACCEPTANCE CRITERIA</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Select the acceptance criteria the property should have.</span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div>
-                                <button data-field='broken_lease' class='options-big-btn'>Broken Lease Accepted</button>
-                                <button data-field='eviction_history' class='options-big-btn'>Eviction History Accepted</button>
-                                <button data-field='criminal_history' class='options-big-btn'>Criminal History Accepted</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-9' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header' style='text-align: center;'>PUBLIC TRANSIT</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Is public transportation your primary mode of transportation?</span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div class='justify-center' style='margin-top: 0px;'>
-                                <div>
-                                    <div class='justify-center'>
-                                        <button class='select-public-transport'>YES</button>
-                                    </div>
-                                    <div class='justify-center'>
-                                        <button class='select-public-transport'>NO</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-10' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header' style='text-align: center;'>FOOD</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Is it important that you have a grocery store within walking distance from your home?</span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div class='justify-center' style='margin-top: 0px;'>
-                                <div>
-                                    <div class='justify-center'>
-                                        <button style='width: 210px;' class='select-grocery'>NOT IMPORTANT</button>
-                                    </div>
-                                    <div class='justify-center'>
-                                        <button style='width: 210px;' class='select-grocery'>SOMEWHAT IMPORTANT</button>
-                                    </div>
-                                    <div class='justify-center'>
-                                        <button style='width: 210px;' class='select-grocery'>VERY IMPORTANT</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id='options-wizard-10' style='margin-bottom: 350px;'>
-                <br/>
-
-                <div class='justify-center'>
-                   <div id='welcome-header' style='text-align: center;'>FOOD</div>
-                </div>
-
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <span class='options-wizard-question-text justify-center'>Is it important that you have a grocery store within walking distance from your home?</span>
-                        <div style='margin-top: 10px;' class='justify-center'>
-                            <div class='justify-center' style='margin-top: 0px;'>
-                                <div>
-                                    <div class='justify-center'>
-                                        <button style='width: 210px;' class='select-grocery'>NOT IMPORTANT</button>
-                                    </div>
-                                    <div class='justify-center'>
-                                        <button style='width: 210px;' class='select-grocery'>SOMEWHAT IMPORTANT</button>
-                                    </div>
-                                    <div class='justify-center'>
-                                        <button style='width: 210px;' class='select-grocery'>VERY IMPORTANT</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ----------------------------------------------- -->
-            <div class='justify-center wizard-btns-container'>
-                <div class='justify-center'>
-                    <!-- <button class='back-btn' style='display: none;'>BACK</button>
-                    <button class='done-btn'>PERSONALIZED SEARCH</button> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-                    <button class='skip-btn'>SHOW ALL</button>
-                </div>
-            </div>
 
             <!-------Welcome text and Disclaimer --------- -->
             <div class="bottom-footer" style='height: 0%; display: none;'>
@@ -417,11 +112,11 @@
                 <h4>&nbsp;</h4>
                     <div  class='bottom-footer-text'>
 
-                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and family size according to the Department of Housing and Urban Development (<a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new">Link</a>). Each property also has detailed information that helps prospective tenants find housing that best meets their needs. 
+                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development (<a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new">Link</a>). Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
                     <br/><br/>
-                    
-                    Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data. 
-                    
+
+                    Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data.
+
                     </div>
                     <div>&nbsp;</div>
                     <span class='bottom-footer-text'><button id='hide-bottom-footer'><!--&#10004;-->&times;</button> I understand</span>
@@ -445,27 +140,17 @@
 
         <div id='legend-container' style='height: 0%; display: none;'>
             <button style='margin-top: 40px;' id='cancel-map-legend'>x</button>
-            <!--
-            <div style='margin-left: 50px;'>
-                <div>
-                    <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
-                        <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
-                    </div>
-                </div>
-                <div style='margin-top: 20px;'>Affordable property</div>
-            </div>
-            //-->
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: green; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 20px;'>Recommended based on your preferences</div>
+                <div style='margin-top: 20px;'>Fits Income Level</div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: orange; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 20px;'>Recommended (upper level) </div>
+                <div style='margin-top: 20px;'>Next Income Level </div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
