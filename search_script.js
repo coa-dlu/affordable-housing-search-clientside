@@ -4,8 +4,8 @@ var userOptions = {
 var properties = {};
 var map;
 function getMFILevel(yearlyIncome, householdSize) {
-  if (!yearlyIncome || !householdSize) {
-      return null;
+  if (!yearlyIncome || !householdSize || householdSize === 0) {
+      return 0;
   }
 
   let size = householdSize;
@@ -19,22 +19,24 @@ function getMFILevel(yearlyIncome, householdSize) {
  let incomes = _.keys(householdIncomeLimits);
  incomes.sort(function(a, b) {return a - b});
 
- //console.log('income ' + incomes);
-
  for (var thisIncome of incomes) {
-      if (yearlyIncome < parseInt(thisIncome)) {
+      if (yearlyIncome <= parseInt(thisIncome)) {
           income = thisIncome;
           break;
       }
  }
-
- let mfi = incomeLimits[size][thisIncome];
- //console.log('mfi ' +mfi);
+ if (size < 1 || income < yearlyIncome) {
+    var mfi = 200;
+ } else if (income === 0) {
+    var mfi=20;
+ } else {
+    var mfi = incomeLimits[size][income];
+ }
  return mfi;
 }
 
 function getMFILevel2(base) {
-    let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
+    let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
     if (base< 140) {
         var found = allMfiLevels.find(function(mfi) {
             return  mfi > base;
@@ -42,7 +44,6 @@ function getMFILevel2(base) {
     } else {
         var found = 140;
     }
-    //console.log('upper mfi ' +found);
     return found;
 }
 
@@ -51,54 +52,13 @@ $(document).ready(function() {
 
   $('.bottom-footer').show();
   $('.bottom-footer').css('height', '0px');
-  $('.bottom-footer').animate({height: '450px'}, 'slow');
+  $('.bottom-footer').animate({height: '900px'}, 'slow');
   var optionsWizardNum = 1;
-
-  $('.next-btn').click(function() {
-      $('#options-wizard-' + optionsWizardNum).hide();
-      optionsWizardNum = optionsWizardNum + 1;
-
-      // skip schools for now
-      if (optionsWizardNum == 7) {
-          optionsWizardNum = optionsWizardNum + 1;
-      }
-      $('#options-wizard-' + optionsWizardNum).show();
-
-      if (optionsWizardNum > 1) {
-          $('.back-btn').show();
-      }
-
-      if (optionsWizardNum == 10) {
-          $('.next-btn').hide();
-          $('.done-btn').show();
-      }
-  });
-
-  $('.back-btn').click(function() {
-      $('#options-wizard-' + optionsWizardNum).hide();
-      optionsWizardNum = optionsWizardNum - 1;
-
-      // skip schools for now
-      if (optionsWizardNum == 7) {
-          optionsWizardNum = optionsWizardNum - 1;
-      }
-      $('#options-wizard-' + optionsWizardNum).show();
-
-      if (optionsWizardNum < 2) {
-          $('.back-btn').hide();
-      }
-
-      if (optionsWizardNum != 10) {
-          $('.next-btn').show();
-          $('.done-btn').hide();
-      }
-  });
 
   $('.done-btn').click(function() {
       $('#options-wizard-' + optionsWizardNum).hide();
       optionsWizardNum = 1;
       // hide welcome container
-      
       $('#welcome-container').animate({height: '0%'}, 'slow', function() {
           $('.top-header').show();
           $('.top-header').css('height', '0px');
@@ -164,34 +124,19 @@ $(document).ready(function() {
   });
 
   $('#filter-applied-banner').click(function() {
-      location.reload(); /*
-      $('#filter-applied-banner').animate({width: '0%'}, 'slow');
-      $('#map-legend-banner').animate({width: '0%'}, 'slow');
-      $('#filter-applied-banner').hide();
-      $('#map-legend-banner').hide();
-      $('.top-header').hide();
-      $('#welcome-container').show();
-      $('#welcome-container').css('height', '0%');
-      $('#welcome-container').animate({'height': '100%'}, 'slow');
-
-      $('#options-wizard-' + 3).show();
-      $('.done-btn').show();*/
-      //$('.back-btn').hide();
-      // $('.next-btn').show();
+      location.reload(); 
   });
 
   $('.select-lang').click(function(e) {
       userOptions['lang'] = $(e.target).text();
       $('.select-lang').removeClass('btn-select');
       $(e.target).addClass('btn-select');
-      //console.log(userOptions);
   });
 
   $('.select-voucher').click(function(e) {
       userOptions['section8'] = $(e.target).text();
       $('.select-voucher').removeClass('btn-select');
       $(e.target).addClass('btn-select');
-      //console.log(userOptions);
   });
 
   $('.select-public-transport').click(function(e) {
@@ -206,24 +151,20 @@ $(document).ready(function() {
 
   $('#yearly-income-input').blur(function(e) {
       userOptions['income'] = $(e.target).val();
-      //console.log(userOptions);
   });
 
   $('#household-size').blur(function(e) {
       userOptions['household-size'] = $(e.target).val();
-      //console.log(userOptions);
   });
 
   $('.options-big-btn').click(function(e) {
       if ($(e.target).data('field')) {
           var fieldVal = $(e.target).data('field');
-          //console.log($(e.target).data('field'));
           if (!_.contains(userOptions.filters, fieldVal)) {
               userOptions.filters.push(fieldVal);
           } else {
               userOptions.filters = userOptions.filters.filter(function(x) {return x != fieldVal});
           }
-          //console.log(userOptions);
       }
 
       if ($(e.target).hasClass('btn-select')) {
@@ -272,41 +213,10 @@ $(document).ready(function() {
   });
 });
 
-// score indicates degree to which property is a match, acceptence critieria (i.e. broken lease, etc.) and section 8 are prioritized in terms of weights
-/*
-function addMatchScore(property) {
-  var matchScore = 0;
-
-  for (var f of userOptions.filters) {
-      if (_.contains(['broken_lease', 'eviction_history', 'criminal_history'], f)) {
-          if (property[f] == 'yes') {
-              matchScore = matchScore + 10;
-          } else if (property[f] == 'depends') {
-              matchScore = matchScore + 5;
-          }
-      } else {
-          if (property[f] == 1) {
-              matchScore = matchScore + 10;
-          }
-      }
-  }
-
-  if (userOptions.section8 == 'YES') {
-      if (property['accepts_section_8'] == 1) {
-          matchScore = matchScore + 25;
-      }
-  }
-
-  property.matchScore = matchScore;
-
-  return property;
-}
-*/
 function getAllProperties() {
   $.get(
       data_hub_api_endpoint,
       function(response) {
-          //console.log(response.data);
           var propertiesTemp = response.data;
 
           for (var property of propertiesTemp) {
@@ -320,31 +230,50 @@ function getAllProperties() {
 }
 
 function renderMarkers2(map,range) {
-  //console.log(range);
   let size = userOptions['household-size'];
   let mfiLevel = getMFILevel(userOptions.income, size);
-  let mfiLevel2 = getMFILevel2(mfiLevel);
+  if (mfiLevel===200) { 
+      var mfiLevel2 = 200;
+  }  else {
+    var mfiLevel2 = getMFILevel2(mfiLevel);
+  }
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
-  let allMfiLevels = [20, 30, 40, 50, 60, 65, 70, 80, 100, 120, 140];
-  //console.log('mfilevel: ' + mfiLevel)
+  let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
   if (mfiLevel) {
     let tempMFILevel = mfiLevel;
     let tempMFILevel2 = mfiLevel2;
-    for (var pr in properties) {
+    for (var pr in properties) { 
         var property = properties[pr];
         var x = 'num_units_mfi_' + tempMFILevel;
         var y = 'num_units_mfi_' + tempMFILevel2;
-        //console.log(tempMFILevel);
-
-        if (parseInt(property[x]) > 0 ) {
-            mfiPropertyMatches.push(property.id);
-        } 
-        if (parseInt(property[y]) > 0 ) {
-            mfiPropertyUpperMatches.push(property.id);
+        if (userOptions.section8==='YES') {//visitor has voucher. show all properties that accept voucher and has higher than their MFI level units
+            if (parseInt(property[x]) > 0 ) {//matching units
+                mfiPropertyMatches.push(property.id);
+            } else if (property.accepts_section_8===1) { //no units in current level but  property accepts voucher 
+                let allMfi = [40, 50, 60, 65, 80];
+                for (l in allMfi) {
+                    if (allMfi[l] > tempMFILevel) {
+                        var z = 'num_units_mfi_' + allMfi[l];
+                        if (parseInt(property[z]) > 0 ) {
+                        mfiPropertyMatches.push(property.id);
+                        break;
+                        }
+                    }
+                }
+                //show places with vouchers that has unites in higher MFI levels in green 
+            } else if (parseInt(property[y]) > 0 ) { //matching units in upper level
+                mfiPropertyUpperMatches.push(property.id);
+            }
+        } else { //visitor has no voucher. only show matches and upper level property
+            if (parseInt(property[x]) > 0 ) {
+                mfiPropertyMatches.push(property.id);
+            } 
+            if (parseInt(property[y]) > 0 ) {
+                mfiPropertyUpperMatches.push(property.id);
+            }
         }
     } 
-
     let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
         return mfi == tempMFILevel;
     });
@@ -356,7 +285,14 @@ function renderMarkers2(map,range) {
     } else {
         tempMFILevel = allMfiLevels[tempMFILevelIndex];
     }
-} 
+} else if (userOptions.section8==='YES')  {
+    for (var pr in properties) { 
+        var property = properties[pr];
+        if (property.accepts_section_8===1) {
+            mfiPropertyMatches.push(property.id);
+        } 
+    }
+}
   var markers = new L.FeatureGroup();
   for (var p in properties) {
       var property = properties[p];
@@ -367,10 +303,7 @@ function renderMarkers2(map,range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  console.log('mfiPropertyMatches: '+ mfiPropertyMatches.length);
-  console.log('UpperMatches: '+ mfiPropertyUpperMatches.length);
   if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
-    //console.log(markers);
     for (var property of propertiesList) {
             if (_.contains(mfiPropertyMatches, property.id)) {
                 var marker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("green")});
@@ -400,8 +333,8 @@ function renderMarkers2(map,range) {
                 marker.on("click", markerOnClick)
                 markers.addLayer(marker);
         }
-  } else {//search button with no criteria; show no match message.
-      // Get the modal
+  } else {  //search button with no criteria; show no match message.
+        // Get the modal
         var modal = document.getElementById("myModal");
 
         // Get the <span> element that closes the modal
@@ -481,8 +414,6 @@ function markerOnClick() {
   var id = this.markerID;
   var property = properties[id];
 
-  // //console.log(property);
-
   tempMarkerId = id;
   tempLat = property.lat;
   tempLong = property.longitude;
@@ -491,9 +422,6 @@ function markerOnClick() {
   var map = returnMap();
   map.removeLayer(this);
   map.addLayer(tempMarker);
-
-  //console.log(id);
-  //console.log(property);
 
   var div = '';
   div += `
@@ -513,7 +441,7 @@ function markerOnClick() {
           div += `<div class='waitlist-flag' style='font-size: 12px; width: 100px;'>WAITLIST</div>`;
       }
       if (property.accepts_section_8) {
-          div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS SECTION 8</div>`;
+          div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS Housing Choice</div>`;
       }
 
       div += '<div class="property-details-container">'
@@ -571,23 +499,14 @@ function markerOnClick() {
               if (property.num_units_mfi_60) {
                 div += `<div>MFI 60: ${property.num_units_mfi_60} Units</div>`;
               }
+              if (property.num_units_mfi_65) {
+                div += `<div>MFI 65: ${property.num_units_mfi_65} Units</div>`;
+              }
               if (property.num_units_mfi_70) {
                 div += `<div>MFI 70: ${property.num_units_mfi_70} Units</div>`;
               }
               if (property.num_units_mfi_80) {
                 div += `<div>MFI 80: ${property.num_units_mfi_80} Units</div>`;
-              }
-              if (property.num_units_mfi_90) {
-                div += `<div>MFI 90: ${property.num_units_mfi_90} Units</div>`;
-              }
-              if (property.num_units_mfi_100) {
-                div += `<div>MFI 100: ${property.num_units_mfi_100} Units</div>`;
-              }
-              if (property.num_units_mfi_110) {
-                div += `<div>MFI 110: ${property.num_units_mfi_110} Units</div>`;
-              }
-              if (property.num_units_mfi_120) {
-                div += `<div>MFI 120: ${property.num_units_mfi_120} Units</div>`;
               }
           div += '</div>';
       div += '</div>';
