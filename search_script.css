@@ -290,7 +290,9 @@
     
     
     .done-btn {
-        width: 200px;
+        position: absolute;
+        top: 200;
+        width: 250px;
         height: 35px;
         background-color: #cc3d3d;
         color: white;
@@ -300,7 +302,7 @@
     }
 
     .skip-btn {
-        width: 100px;
+        width: 150px;
         height: 35px;
         background-color: #337ab7;
         color: white;
@@ -699,14 +701,13 @@
         z-index: 10000;
         top: 120px;
         position: absolute;
-        height: 450px;
         margin-bottom: 0px;
-            /*box-shadow: 3px 14px 0 rgba(0,0,0,0.4);*/
-        width: 100%;
+        /*box-shadow: 3px 14px 0 rgba(0,0,0,0.4);*/
         border-top: 1px solid white;
         border-bottom: 1px solid white;
         opacity: 0.;
         padding: 5px;
+        overflow: auto;
     }
 
     .bottom-footer-text {
