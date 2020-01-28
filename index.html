@@ -36,7 +36,7 @@
                 <!-- Modal content -->
                 <div class="modal-content">
                   <span class="close">&times;</span>
-                  <p>There are no matching properties.</p>
+                  <p>Sorry, no results were found.</p>
                 </div>
 
         </div>
@@ -61,7 +61,7 @@
                             <span class='options-wizard-question-text justify-center'>What is your household's yearly income?</span>
                         </div>
                         <div class='justify-center' style='margin-top: 10px;'>
-                            <span id='money-symbol'>$ </span><input type='number' id='yearly-income-input' class='form-control' style='font-size: 18px; height: 30; width: 200px;'>
+                            <span id='money-symbol'>$ </span><input type='number' id='yearly-income-input' min='0' class='form-control' style='font-size: 18px; height: 30; width: 200px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46" onchange="this.value = parseFloat(this.value).toFixed(2);">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                             <span class='options-wizard-question-text justify-center'>How many people are in your household?</span>
                         </div>
                         <div class='justify-center' style='margin-top: 10px;'>
-                            <span id='money-symbol' style='color: #337ab7; opacity: 0.9'>x </span><input type='number' id='household-size' class='form-control' style='font-size: 18px; height: 30; width: 200px;'>
+                            <span id='money-symbol' style='color: #337ab7; opacity: 0.9'>x </span><input type='number' min='1' id='household-size' class='form-control' style='font-size: 18px; height: 30; width: 200px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                 <h4>&nbsp;</h4>
                     <div  class='bottom-footer-text'>
 
-                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development (<a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new">Link</a>). Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
+                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a> . Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
                     <br/><br/>
 
                     Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data.
@@ -125,13 +125,13 @@
 
         <div id='filter-applied-banner' style='display: none'>
             <span style='margin-top: 35px; margin-left: 5px; display: block;'>
-              Welcome
+              NEW SEARCH
             </span>
         </div>
 
         <div id='map-legend-banner' style='display: none'>
             <span style='margin-top: 28px; margin-left: 5px; display: block;'>
-                Map Legend
+                MAP LEGEND
             </span>
         </div>
 
@@ -160,7 +160,7 @@
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: red; margin-left: 50px;'>
-                    <i class="shift-icon glyphicon glyphicon-heart icon-white"></i>
+                    <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
                 <div style='margin-top: 20px;'>Selected property</div>
             </div>

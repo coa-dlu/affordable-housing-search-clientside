@@ -50,9 +50,19 @@ function getMFILevel2(base) {
 $(document).ready(function() {
   getAllProperties();
 
-  $('.bottom-footer').show();
-  $('.bottom-footer').css('height', '0px');
-  $('.bottom-footer').animate({height: '900px'}, 'slow');
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+    }
+  var newsearch = getUrlVars()["new"];
+  if (newsearch != 1) {
+    $('.bottom-footer').show();
+    $('.bottom-footer').css('height', '0px');
+    $('.bottom-footer').animate({height: '900px'}, 'slow');
+  }
   var optionsWizardNum = 1;
 
   $('.done-btn').click(function() {
@@ -109,7 +119,7 @@ $(document).ready(function() {
           $('#filter-applied-banner').animate({width: '0px'}, 'slow');
           $('#map-legend-banner').animate({width: '0px'}, 'slow');
           $('#legend-container').show();
-          $('#legend-container').animate({height: '80%'}, 'slow');
+          $('#legend-container').animate({height: '60%'}, 'slow');
   });
 
   $('#cancel-map-legend').click(function() {
@@ -124,7 +134,7 @@ $(document).ready(function() {
   });
 
   $('#filter-applied-banner').click(function() {
-      location.reload(); 
+    window.location.assign("index.html?new=1");
   });
 
   $('.select-lang').click(function(e) {
@@ -417,7 +427,9 @@ function markerOnClick() {
   tempMarkerId = id;
   tempLat = property.lat;
   tempLong = property.longitude;
-  tempMarker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("red", "heart")});
+  tempMarker = L.marker([parseFloat(property.lat), parseFloat(property.longitude)], {icon: assignMarker("red")});
+  tempMarker.markerID = property.id;
+  tempMarker.on("click", markerOnClick);
 
   var map = returnMap();
   map.removeLayer(this);
@@ -431,18 +443,20 @@ function markerOnClick() {
   </div>
   `;
 
-  div += `<br/>`;
+  if (property.has_waitlist) {
+    div += `<div style='font-size: 14px; color:red; padding:10px;'> &nbsp;&nbsp; &#9888; This property has a waitlist</div>`;
+    } else {
+    div += `<div style='font-size: 14px; padding:10px;'>&nbsp;</div>`;
+  }
+  //div += `<br/>`;
 
+  if (property.accepts_section_8) {
+    div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS Housing Choice</div>`;
+  }
   div += '<div id="property-details">'
 
       div += `<div style='margin-top: 10px; font-size: 15px;'>${property.property_name}</div>`;
       div += `<div style='font-size: 15px;'>${property.address} ${property.city}, ${property.state} ${property.zipcode}</div>`;
-      if (property.has_waitlist) {
-          div += `<div class='waitlist-flag' style='font-size: 12px; width: 100px;'>WAITLIST</div>`;
-      }
-      if (property.accepts_section_8) {
-          div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS Housing Choice</div>`;
-      }
 
       div += '<div class="property-details-container">'
           div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Contact Information</div>`;
