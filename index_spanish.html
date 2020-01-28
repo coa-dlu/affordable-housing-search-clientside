@@ -3,6 +3,7 @@
         <title>Austin Affordable Housing</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
         <!-- Latest compiled and minified CSS (bootstrap) -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- jquery ui css -->
@@ -43,11 +44,11 @@
         </div>
         <div id='welcome-container'>
             <div style='display: flex; justify-content: center;'>
-                <div id='welcome-title'>AUSTIN AFFORDABLE HOUSING</div>                
+                <div id='welcome-title'>Austin Vivienda Asequible</div>                
             </div>
 
             <div style='display: flex; justify-content: center;'>
-                <div id='welcome-direct'><a href="index_spanish.html">Espa&ntilde;ol</a></div>                
+                <div id='welcome-direct'><a href="index.html">English</a></div>                
             </div>
 
 
@@ -55,7 +56,7 @@
                 <br/>
 
                 <div class='justify-center'>
-                   <div id='welcome-header'>WELCOME</div>
+                   <div id='welcome-header'>¡Bienvenido!</div>
                 </div>
 
                 <br/>
@@ -63,7 +64,7 @@
                 <div class='justify-center' style='margin-top: 10px;'>
                     <div>
                         <div class='justify-center'>
-                            <span class='options-wizard-question-text justify-center'>What is your household's yearly income?</span>
+                            <span class='options-wizard-question-text justify-center'>¿Cuál es el ingreso anual de su hogar?</span>
                         </div>
                         <div class='justify-center' style='margin-top: 10px;'>
                             <span id='money-symbol'>$ </span><input type='number' id='yearly-income-input' min='0' class='form-control' style='font-size: 18px; height: 30; width: 200px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46" onchange="this.value = parseFloat(this.value).toFixed(2);">
@@ -75,7 +76,7 @@
                 <div class='justify-center' style='margin-top: 10px;'>
                     <div>
                         <div class='justify-center'>
-                            <span class='options-wizard-question-text justify-center'>How many people are in your household?</span>
+                            <span class='options-wizard-question-text justify-center'>¿Cuántas personas viven en su hogar?</span>
                         </div>
                         <div class='justify-center' style='margin-top: 10px;'>
                             <span id='money-symbol' style='color: #337ab7; opacity: 0.9'>x </span><input type='number' min='1' id='household-size' class='form-control' style='font-size: 18px; height: 30; width: 200px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57">
@@ -87,12 +88,12 @@
                     <div class='justify-center'>
                         <div>
                             <span class='justify-center'>
-                                <span class='options-wizard-question-text justify-center'>Do you have a Housing Choice voucher?</span>
+                                <span class='options-wizard-question-text justify-center'>¿Tiene usted un vale de Housing Choice?</span>
                             </span>
                             <div class='justify-center' style='margin-top: 0px;'>
                                 <div>
                                     <div class='justify-center'>
-                                        <button class='select-voucher'>YES</button>
+                                        <button class='select-voucher'> SI </button>
                                     </div>
                                     <div class='justify-center'>
                                         <button class='select-voucher'>NO</button>
@@ -100,10 +101,10 @@
                                 </div>
                             </div>
                             <div class='justify-center' style='margin-top: 20px;'>
-                                <button class='done-btn'>PERSONALIZED SEARCH</button>
+                                <button class='done-btn'>Búsqueda personalizada </button>
                             </div>
                             <div class='justify-center' style='margin-top: 100px;'>
-                                <button class='skip-btn'>SHOW ALL</button>
+                                <button class='skip-btn'>Mostrar todas</button>
                             </div>
                         </div>
                     </div>
@@ -117,14 +118,14 @@
                 <h4>&nbsp;</h4>
                     <div  class='bottom-footer-text'>
 
-                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a> . Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
+                    La Herramienta de Búsqueda de Vivienda Económica contiene una lista de todas las viviendas económicas de alquiler de ingresos limitados dentro de la Ciudad de Austin. Esto incluye unidades de ingresos limitados de agencias gubernamentales (Autoridad de Vivienda de la Ciudad de Austin, Vivienda y Desarrollo Comunitario, Autoridad de Vivienda del Condado de Travis y el Departamento de Vivienda y Asuntos Comunitarios de Texas) y algunas propiedades con tasa de mercado que aceptan un gran número de vales del programa Housing Choice. La herramienta de búsqueda mostrará las unidades de vivienda que se correspondan al ingreso del hogar y el tamaño de la familia del futuro inquilino de acuerdo con el Departamento de Vivienda y Desarrollo Urbano <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a>. Cada propiedad también tiene información detallada que ayuda a los futuros inquilinos a encontrar la vivienda que satisfaga mejor sus necesidades.
                     <br/><br/>
 
-                    Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data.
+                    Relevo de responsabilidad: Esta herramienta todavía está en construcción. Se están llenando los vacíos de información y se continuarán añadiendo propiedades nuevas. No se hace ninguna aseveración con respecto a la validez de los datos.
 
                     </div>
                     <div>&nbsp;</div>
-                    <span class='bottom-footer-text'><button id='hide-bottom-footer'><!--&#10004;-->&times;</button> I understand</span>
+                    <span class='bottom-footer-text'><button id='hide-bottom-footer'><!--&#10004;-->&times;</button> Yo comprendo</span>
             </div>
         </div>
 

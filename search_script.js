@@ -134,7 +134,7 @@ $(document).ready(function() {
   });
 
   $('#filter-applied-banner').click(function() {
-    window.location.assign("index.html?new=1");
+    window.location.assign("?new=1");
   });
 
   $('.select-lang').click(function(e) {
