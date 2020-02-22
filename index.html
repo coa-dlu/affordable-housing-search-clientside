@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- jquery ui css -->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- leaflet -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
@@ -26,7 +27,7 @@
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
 
         <div class="top-header" style='display: none;'>
-            <h4 class="top-header-title">AUSTIN AFFORDABLE HOUSING</h4>
+             <a href="?new=1" style='text-decoration: none;'><h4 class="top-header-title"><i class="fa fa-home"> &nbsp;</i>AUSTIN AFFORDABLE HOUSING</h4></a>
         </div>
 
         <!-- Trigger/Open The Modal
@@ -43,7 +44,7 @@
         </div>
         <div id='welcome-container'>
             <div style='display: flex; justify-content: center;'>
-                <div id='welcome-title'>AUSTIN AFFORDABLE HOUSING</div>                
+                <div id='welcome-title'><i class="fa fa-home"> &nbsp;</i>AUSTIN AFFORDABLE HOUSING</div>                
             </div>
 
             <div style='display: flex; justify-content: center;'>
@@ -128,18 +129,6 @@
             </div>
         </div>
 
-        <div id='filter-applied-banner' style='display: none'>
-            <span style='margin-top: 35px; margin-left: 5px; display: block;'>
-              NEW SEARCH
-            </span>
-        </div>
-
-        <div id='map-legend-banner' style='display: none'>
-            <span style='margin-top: 28px; margin-left: 5px; display: block;'>
-                MAP LEGEND
-            </span>
-        </div>
-
         <div id='property-info'>
         </div>
 
@@ -169,6 +158,21 @@
                 </div>
                 <div style='margin-top: 20px;'>Selected property</div>
             </div>
+        </div>
+        <div class="fixed-footer" style='display: none;'>
+                Legend: 
+                <span class='tear' style='background-color: green; margin-left: 25px; padding: 5px;font-size:10px'>
+                    <i class="glyphicon glyphicon-home icon-white" ></i>
+                </span> Best Fit
+                <span class='tear' style='background-color: orange; margin-left: 25px;padding: 5px;font-size:10px'>
+                    <i class="glyphicon glyphicon-home icon-white"></i>
+                </span> Better Fit
+                <span class='tear' style='background-color: #00BFFF; margin-left: 25px;padding: 5px;font-size:10px'>
+                    <i class="glyphicon glyphicon-home icon-white"></i>
+                </span> Other
+                <span class='tear' style='background-color: red; margin-left: 25px;padding: 5px;font-size:10px'>
+                    <i class="glyphicon glyphicon-home icon-white"></i>
+                </span> Selected
         </div>
     </body>
 

@@ -73,16 +73,13 @@ $(document).ready(function() {
           $('.top-header').show();
           $('.top-header').css('height', '0px');
           $('.top-header').animate({height: '60px'}, 'slow');
+          $('.fixed-footer').show();
+          $('.fixed-footer').css('height', '0px');
+          $('.fixed-footer').animate({height: '45px'}, 'slow');
           $('#welcome-container').hide();
       });
       
       renderMarkers2(map,0);
-
-      // show side tabs
-      $('#filter-applied-banner').show();
-      $('#map-legend-banner').show();
-      $('#filter-applied-banner').css('width', '30px');
-      $('#map-legend-banner').css('width', '30px');
   });
 
   $('.skip-btn').click(function() {
@@ -94,16 +91,13 @@ $(document).ready(function() {
         $('.top-header').show();
         $('.top-header').css('height', '0px');
         $('.top-header').animate({height: '60px'}, 'slow');
+        $('.fixed-footer').show();
+        $('.fixed-footer').css('height', '0px');
+        $('.fixed-footer').animate({height: '45px'}, 'fast');
         $('#welcome-container').hide();
     });
 
     renderMarkers2(map,1);
-
-    // show side tabs
-    $('#filter-applied-banner').show();
-    $('#map-legend-banner').show();
-    $('#filter-applied-banner').css('width', '30px');
-    $('#map-legend-banner').css('width', '30px');
 });
 
   // init map
@@ -115,26 +109,9 @@ $(document).ready(function() {
 
   titleLayer.addTo(map);
 
-  $('#map-legend-banner').click(function() {
-          $('#filter-applied-banner').animate({width: '0px'}, 'slow');
-          $('#map-legend-banner').animate({width: '0px'}, 'slow');
-          $('#legend-container').show();
-          $('#legend-container').animate({height: '60%'}, 'slow');
-  });
-
-  $('#cancel-map-legend').click(function() {
-      $('#legend-container').animate({height: '0%'}, 'slow', function(){$('#legend-container').hide();});
-      $('#filter-applied-banner').animate({width: '30px'}, 'slow');
-      $('#map-legend-banner').animate({width: '30px'}, 'slow');
-  });
-
   $('#hide-bottom-footer').click(function() { 
     $('.bottom-footer').hide();
     $('.bottom-footer').animate({height: '0px'}, 'slow');
-  });
-
-  $('#filter-applied-banner').click(function() {
-    window.location.assign("?new=1");
   });
 
   $('.select-lang').click(function(e) {
@@ -655,9 +632,6 @@ function markerOnClick() {
       }
   });
 
-  $('#filter-applied-banner').animate({width: '0px'}, 'slow', function() {$('#filter-applied-banner').hide();});
-  $('#map-legend-banner').animate({width: '0px'}, 'slow', function() {$('#map-legend-banner').hide();});
-
   $('#property-info').show();
   $('#property-info').animate({height: '30%'}, 'slow');
 
@@ -673,11 +647,6 @@ function markerOnClick() {
   });
 
   $('#cancel-btn').click(function() {
-      $('#filter-applied-banner').show();
-      $('#map-legend-banner').show();
-      $('#filter-applied-banner').animate({width: '30px'}, 'slow');
-      $('#map-legend-banner').animate({width: '30px'}, 'slow');
-
       $('#property-info').animate({height: '0%'}, 'slow', function() {$('#property-info').hide();});
       $('#show-more').text('SHOW LESS');
   });

@@ -160,6 +160,24 @@
         border-bottom: 1px solid white;
         opacity: 0.8;
     }
+
+    
+    .fixed-footer{
+        background-color: #0c2b46;
+        color: white;
+        z-index: 1000;
+        bottom: 0px;
+        left: 0px;
+        position: absolute;
+        height: 45px;
+        margin-top: 0px;
+        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        width: 100%;
+        border-bottom: 1px solid white;
+        opacity: 0.8;
+        text-align: center;
+        padding: 5px;
+    }
     
     .search-btn {
         width: 200px;
@@ -453,59 +471,6 @@
             position: relative;
             font-size: 11px;
         }
-
-    #filter-applied-banner, #map-legend-banner {
-    /*    position: absolute;
-        z-index: 100;
-        background-color: #337ab7;
-        top: 0px;
-        position: absolute;
-        width: 100px;
-        height: 410px;
-        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-        border-right: 3px solid white;
-        border-top: 3px solid white;
-        border-bottom: 3px solid white;
-        opacity: 0.8;
-        cursor: pointer;
-        writing-mode: vertical-lr;
-        color: white;
-        font-size: 41px;
-        font-weight: 200;
-        text-transform: uppercase;
-    */
-        position: absolute;
-        z-index: 100;
-        background-color: #337ab7;
-        top: 0px;
-        position: absolute;
-        /*width: 30px;*/
-        width: 0px;
-        height: 150px;
-        box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-        border-right: 1px solid white;
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
-        opacity: 0.9;
-        cursor: pointer;
-        writing-mode: vertical-lr;
-        color: white;
-        font-size: 14px;
-        font-weight: 200;
-        text-transform: uppercase;
-    }
-    
-    #filter-applied-banner {
-        /*margin-top: 100px;*/
-        /*margin-top: 400px;*/
-        margin-top: 120px;
-    }
-    
-    #map-legend-banner {
-        /*margin-top: 600px;*/
-        /*margin-top: 900px;*/
-        margin-top: 320px;
-    }
     
     #property-info {
         z-index: 100;
@@ -701,9 +666,9 @@
     .tear {
       width: 40px;
       height: 40px;
-      border-radius: 0 50% 50% 50%;
+      border-radius:0 50% 50% 50%;
       /*border: 3px solid black;*/
-      transform: rotate(225deg);
+      transform: rotate(90deg);
       margin-top: 20px;
     }
     
