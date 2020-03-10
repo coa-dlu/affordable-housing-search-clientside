@@ -127,7 +127,19 @@ button:disabled, button[disabled]{
     /*width: 250px;*/
     text-align: center;
 }
-    
+
+input[type=number] {
+    padding: 5px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 2px solid silver;
+}
+
+input[type=number]:focus {
+    border: 3px solid #337ab7;
+  }
+
 #map-legend-banner {
     position: absolute;
     z-index: 100;
@@ -392,7 +404,7 @@ button:disabled, button[disabled]{
     height: 20px;
     width: 20px;
     background-color: #eee;
-    outline: 1px solid black;
+    outline: 1px solid #337ab7;
 }
   
 /* On mouse-over, add a grey background color */
