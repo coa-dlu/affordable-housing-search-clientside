@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>Austin Affordable Housing</title>
+        <title>Affordable Housing Austin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         <!-- Latest compiled and minified CSS (bootstrap) -->
@@ -19,17 +19,17 @@
         <script src="https://use.fontawesome.com/186244fe4f.js"></script>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
         <link rel="stylesheet" href="Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
-        
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <link href="search_script.css" rel="stylesheet" />
-        <script> 
-            function showterms(){  
+        <script>
+            function showterms(){
                 $('.bottom-footer').show();
                 $('.bottom-footer').css('height', '0px');
                 $('.bottom-footer').animate({height: '450px'}, 'slow');
-            } 
+            }
         </script>
 
 
@@ -47,6 +47,10 @@
         crossorigin=""></script>
         <script src="Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
 
+        <!-- ponyfill to allow css variables in IE11 -->
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+
+
         <!-- search files -->
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
         <script type="text/javascript" language="javascript" src="mapbox_public_key.js"></script>
@@ -58,7 +62,7 @@
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
 
         <div class="top-header" style='display: none;'>
-             <a href="" style='text-decoration: none;'><h4 class="top-header-title"><i class="fa fa-home"> &nbsp;</i>AUSTIN AFFORDABLE HOUSING</h4></a>
+             <a href="" style='text-decoration: none;'><h4 class="top-header-title">Affordable Housing Austin</h4></a>
         </div>
 
         <!-- The Modal -->
@@ -72,11 +76,11 @@
         </div>
         <div id='welcome-container'>
             <div class="top-header">
-                <a href="" style='text-decoration: none;'><h4 class="top-header-title"><i class="fa fa-home"> &nbsp;</i>AUSTIN AFFORDABLE HOUSING</h4></a>
+                <a href="" style='text-decoration: none;'><h4 class="top-header-title"><i class="fa fa-home"> &nbsp;</i>Affordable Housing Austin</h4></a>
             </div>
 
             <div style='display: flex; justify-content: center; margin-top: 70px;'>
-                <div id='welcome-direct'><a href="index_spanish.html">Espa&ntilde;ol</a></div>                
+                <div id='welcome-direct'><a href="index_spanish.html">Espa&ntilde;ol</a></div>
             </div>
 
             <div id='options-wizard'>
@@ -124,7 +128,7 @@
                             <div class='justify-center' style='margin-top: 20px;'>
                                 <button class='done-btn' id='done-btn' disabled>SEARCH</button>
                             </div>
-                            
+
                             <div class='justify-center' style='margin-top: 40px;'>
                             <a href="#" class="skip-link">Show me all affordable housing properties in Austin</a>
                             </div>
@@ -148,7 +152,7 @@
                 </div>
             </div>
         </div>
-		
+
         <div id='map-legend-banner' style='display: none'>
             <span style='margin-top: 28px; margin-left: 5px; display: block;'>
                 MAP LEGEND

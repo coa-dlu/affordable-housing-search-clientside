@@ -2,3 +2,4 @@ mapbox_public_key.js
 data_hub_api_endpoint.js
 data_hub_api_endpoint_dev.js
 data_hub_api_endpoint_stage.js
+node_modules
