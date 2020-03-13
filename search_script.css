@@ -297,8 +297,8 @@ input[type=number]:focus {
     bottom: 0px;
     color: white;
     background-color: var(--coa-color-primary--blue) !important;
-    opacity: 0.9;
     border-top: 1px solid white;
+    border: 1px solid transparent;
 }
 
 .bottom-footer {

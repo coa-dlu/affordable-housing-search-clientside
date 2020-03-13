@@ -85,6 +85,10 @@ $(document).ready(function() {
 
     renderMarkers2(map, 0);
   });
+  $("#search-again").click(function() {
+    toggleSearch();
+    $("#no-results-modal").hide();
+  })
   $(".skip-link").click(function() {
     //$('#options-wizard-' + optionsWizardNum).hide();
     //optionsWizardNum = 1;
@@ -291,7 +295,7 @@ function renderMarkers2(map, range) {
   } else {
     //search button with no criteria; show no match message.
     // Get the modal
-    var modal = document.getElementById("myModal");
+    var modal = document.getElementById("no-results-modal");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
