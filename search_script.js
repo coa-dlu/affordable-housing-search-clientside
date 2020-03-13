@@ -53,19 +53,19 @@ $(document).ready(function() {
         });
         return vars;
         }*/
-        
+
     var optionsWizardNum = 1;
     $('.done-btn').click(function() {
         //$('#options-wizard-' + optionsWizardNum).hide();
         optionsWizardNum = 1;
-        // hide welcome container
-        $('#welcome-container').animate({height: '0%'}, 'slow', function() {
+        // hide search container
+        $('#search-container').animate({height: '0%'}, 'slow', function() {
             $('.top-header').show();
             $('.top-header').css('height', '0px');
             $('.top-header').animate({height: '60px'}, 'slow');
-            $('#welcome-container').hide();
+            $('#search-container').hide();
         });
-        
+
         renderMarkers2(map,0);
         // show side tab
         $('#map-legend-banner').show();
@@ -74,12 +74,12 @@ $(document).ready(function() {
     $('.skip-link').click(function() {
         //$('#options-wizard-' + optionsWizardNum).hide();
         //optionsWizardNum = 1;
-        // hide welcome container
-        $('#welcome-container').animate({height: '0%'}, 'slow', function() {
+        // hide search container
+        $('#search-container').animate({height: '0%'}, 'slow', function() {
             $('.top-header').show();
             $('.top-header').css('height', '0px');
             $('.top-header').animate({height: '60px'}, 'slow');
-            $('#welcome-container').hide();
+            $('#search-container').hide();
         });
         renderMarkers2(map,1);
         // show side tab
@@ -98,17 +98,17 @@ $(document).ready(function() {
         $('#legend-container').show();
         $('#legend-container').animate({height: '60%'}, 'slow');
     });
-    
+
     $('#cancel-map-legend').click(function() {
         $('#legend-container').animate({height: '0%'}, 'slow', function(){$('#legend-container').hide();});
         $('#map-legend-banner').animate({width: '30px'}, 'slow');
     });
 
-    $('#hide-bottom-footer').click(function() { 
+    $('#hide-bottom-footer').click(function() {
         $('.bottom-footer').hide();
         $('.bottom-footer').animate({height: '0px'}, 'slow');
     });
-  
+
     $('#select-voucher').click(function(e) {
         if (document.getElementById("select-voucher").checked) {
             userOptions['section8'] = 'YES';
@@ -154,7 +154,7 @@ function getAllProperties() {
 function renderMarkers2(map,range) {
     let size = userOptions['household-size'];
     let mfiLevel = getMFILevel(userOptions.income, size);
-    if (mfiLevel===200) { 
+    if (mfiLevel===200) {
         var mfiLevel2 = 200;
     }  else {
         var mfiLevel2 = getMFILevel2(mfiLevel);
@@ -165,14 +165,14 @@ function renderMarkers2(map,range) {
     if (mfiLevel) {
         let tempMFILevel = mfiLevel;
         let tempMFILevel2 = mfiLevel2;
-        for (var pr in properties) { 
+        for (var pr in properties) {
             var property = properties[pr];
             var x = 'num_units_mfi_' + tempMFILevel;
             var y = 'num_units_mfi_' + tempMFILevel2;
             if (userOptions.section8==='YES') {//visitor has voucher. show all properties that accept voucher and has higher than their MFI level units
                 if (parseInt(property[x]) > 0 ) {//matching units
                     mfiPropertyMatches.push(property.id);
-                } else if (property.accepts_section_8===1) { //no units in current level but  property accepts voucher 
+                } else if (property.accepts_section_8===1) { //no units in current level but  property accepts voucher
                     let allMfi = [40, 50, 60, 65, 80];
                     for (l in allMfi) {
                         if (allMfi[l] > tempMFILevel) {
@@ -183,19 +183,19 @@ function renderMarkers2(map,range) {
                             }
                         }
                     }
-                    //show places with vouchers that has unites in higher MFI levels in green 
+                    //show places with vouchers that has unites in higher MFI levels in green
                 } else if (parseInt(property[y]) > 0 ) { //matching units in upper level
                 mfiPropertyUpperMatches.push(property.id);
                 }
             } else { //visitor has no voucher. only show matches and upper level property
                 if (parseInt(property[x]) > 0 ) {
                     mfiPropertyMatches.push(property.id);
-                } 
+                }
                 if (parseInt(property[y]) > 0 ) {
                     mfiPropertyUpperMatches.push(property.id);
                 }
             }
-        } 
+        }
         let mfiLevelIndex = allMfiLevels.findIndex(function(mfi) {
             return mfi == tempMFILevel;
         });
@@ -208,11 +208,11 @@ function renderMarkers2(map,range) {
             tempMFILevel = allMfiLevels[tempMFILevelIndex];
         }
     } else if (userOptions.section8==='YES')  {
-        for (var pr in properties) { 
+        for (var pr in properties) {
             var property = properties[pr];
             if (property.accepts_section_8===1) {
                 mfiPropertyMatches.push(property.id);
-            } 
+            }
         }
     }
     var markers = new L.FeatureGroup();
@@ -239,7 +239,7 @@ function renderMarkers2(map,range) {
                 marker.markerID = property.id;
                 marker.on("click", markerOnClick)
                 markers.addLayer(marker);
-            } 
+            }
             if (property.has_available_affordable_units) {
                 numAvailableAffordableUnits = numAvailableAffordableUnits + 1;
             }
@@ -274,7 +274,7 @@ function renderMarkers2(map,range) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        } 
+        }
     }
     map.addLayer(markers);
 }
@@ -406,7 +406,7 @@ function markerOnClick() {
     div += '</div>';
     div += '</div>';
 
-      
+
     div += '<div class="property-details-container">'
     div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Affordability Information</div>`;
     div +=  '<div class="property-details-group">';
@@ -563,7 +563,7 @@ function markerOnClick() {
                 $(this).closest('.property-details-container').hide();
         }
     });
-  
+
     $('#map-legend-banner').animate({width: '0px'}, 'slow', function() {$('#map-legend-banner').hide();});
 
     $('#property-info').show();

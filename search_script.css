@@ -1,6 +1,6 @@
 @import "style_variables.css";
 
-#welcome-direct {
+#search-direct {
     font-size: 12px;
     letter-spacing: 1.5px;
     margin-top: 0px;
@@ -9,7 +9,7 @@
     color: orange;
 }
 
-#welcome-container {
+#search-container {
     width: 100%;
     height: 100%;
     background-color: white;
@@ -17,7 +17,7 @@
     z-index: 100;
 }
 
-#welcome-direct a:link, #welcome-direct a:visited {
+#search-direct a:link, #search-direct a:visited {
     background-color: orange;
     padding: 1px 10px;
     color: white;
@@ -26,7 +26,7 @@
     display: inline-block;
 }
 
-#welcome-direct a:hover, #welcome-direct a:active {
+#search-direct a:hover, #search-direct a:active {
     background-color: red;
 }
 
