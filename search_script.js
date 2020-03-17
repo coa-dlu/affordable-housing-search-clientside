@@ -46,6 +46,8 @@ function getMFILevel2(base) {
 }
 
 $(document).ready(function() {
+  const slider = new mdc.slider.MDCSlider(document.querySelector('.mdc-slider'));
+slider.listen('MDCSlider:change', () => console.log(`Value changed to ${slider.value}`));
   getAllProperties();
   /*
     function getUrlVars() {
@@ -629,7 +631,7 @@ function markerOnClick() {
   $("#show-more").click(function() {
     if ($("#show-more").text() == "Show housing details") {
       $("#property-info").animate({ height: "80%" }, 300);
-      $("#show-more").text("Hide details");
+      $("#show-more").text("Show Less");
     } else {
       $("#property-info").animate({ height: "30%" }, 300);
       $("#show-more").text("Show housing details");
@@ -640,7 +642,7 @@ function markerOnClick() {
     $("#property-info").animate({ height: "0%" }, 300, function() {
       $("#property-info").hide();
     });
-    $("#show-more").text("Hide details");
+    $("#show-more").text("Show Less");
   });
 
   $(".property-details-header").click(function(e) {
