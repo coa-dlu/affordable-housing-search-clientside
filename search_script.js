@@ -49,10 +49,6 @@ function getMFILevel2(base) {
 
 $(document).ready(function() {
   getAllProperties();
-  $("#search-container").on("change", "input", function () {
-     console.log("test");
-     renderMarkers2(map, 0);
-  });
   /*
     function getUrlVars() {
         var vars = {};
@@ -73,7 +69,7 @@ $(document).ready(function() {
   });
 
   // show the detailed legend initially?
-  toggleMapLegendBanner();
+  // toggleMapLegendBanner();
 
 
 

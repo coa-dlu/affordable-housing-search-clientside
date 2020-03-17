@@ -16,10 +16,11 @@
     z-index: 110;
 }
 
-@media only screen and (max-width: 667px) {
+@media only screen and (max-width: 812px) {
   #search-container  {
     width: 100%;
     height: 100%;
+    position: absolute;
   }
 }
 
