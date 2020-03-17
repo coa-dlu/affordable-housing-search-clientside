@@ -88,7 +88,7 @@ button:disabled, button[disabled]{
 }
 
 .done-btn {
-    width: 180px;
+    width: auto;
     height: 30px;
     background-color: var(--coa-color-primary--blue);
     color: white;
@@ -155,7 +155,6 @@ input[type=number]:focus {
     color: white;
     font-size: 14px;
     font-weight: 200;
-    text-transform: uppercase;
     margin-top: 120px;
 }
 

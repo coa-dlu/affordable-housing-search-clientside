@@ -128,7 +128,7 @@ $(document).ready(function() {
 
   $("#hide-bottom-footer").click(function() {
     $(".bottom-footer").hide();
-    $(".bottom-footer").animate({ height: "0px" }, "slow");
+    $(".bottom-footer").animate({ height: "0px" }, 300);
   });
 
   $("#select-voucher").click(function(e) {
@@ -402,7 +402,7 @@ function markerOnClick() {
   var div = "";
   div += `
     <div style='margin-top: 20px;'>
-        <button id='show-more'>SHOW MORE</button>
+        <button id='show-more'>Show housing details</button>
         <button id='cancel-btn'>x</button>
     </div>
     `;
@@ -623,24 +623,24 @@ function markerOnClick() {
 
 
   $("#property-info").show();
-  $("#property-info").animate({ height: "30%" }, "slow");
+  $("#property-info").animate({ height: "30%" }, 300);
 
   // TODO: check that this isn't adding too many handlers
   $("#show-more").click(function() {
-    if ($("#show-more").text() == "SHOW MORE") {
-      $("#property-info").animate({ height: "80%" }, "slow");
-      $("#show-more").text("SHOW LESS");
+    if ($("#show-more").text() == "Show housing details") {
+      $("#property-info").animate({ height: "80%" }, 300);
+      $("#show-more").text("Hide details");
     } else {
-      $("#property-info").animate({ height: "30%" }, "slow");
-      $("#show-more").text("SHOW MORE");
+      $("#property-info").animate({ height: "30%" }, 300);
+      $("#show-more").text("Show housing details");
     }
   });
 
   $("#cancel-btn").click(function() {
-    $("#property-info").animate({ height: "0%" }, "slow", function() {
+    $("#property-info").animate({ height: "0%" }, 300, function() {
       $("#property-info").hide();
     });
-    $("#show-more").text("SHOW LESS");
+    $("#show-more").text("Hide details");
   });
 
   $(".property-details-header").click(function(e) {
