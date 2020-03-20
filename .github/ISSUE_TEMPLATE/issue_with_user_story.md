@@ -9,7 +9,7 @@ about: Describe your problem in a user-centered way.
 ### Detailed Description
 <!--- Is your feature request related to a problem? Please describe. -->
 <!--- Provide a general summary of the issue in the Title above or described by the user story -->
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+<!--- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
 
 ### Possible Implementation
 <!--- Not obligatory, but suggest an idea for implementing addition or change -->
