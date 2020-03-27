@@ -45,6 +45,8 @@ function getMFILevel2(base) {
   return found;
 }
 
+
+
 $(document).ready(function() {
   getAllProperties();
   /*
@@ -67,7 +69,7 @@ $(document).ready(function() {
   });
 
   // show the detailed legend initially?
-  toggleMapLegendBanner();
+  // toggleMapLegendBanner();
 
 
 
@@ -103,18 +105,20 @@ $(document).ready(function() {
   }
 
   function toggleMapLegendBanner() {
-    $("#map-legend-banner").toggle("slide", { direction: "left" }, 200);
-    $("#map-legend-banner").children().toggle("slide", { direction: "left" }, 200);
+    $("#map-legend-banner").toggle("slide", { direction: "down" }, 200);
+    $("#map-legend-banner").children().toggle("slide", { direction: "down" }, 200);
   }
 
   function toggleMapLegendDetail() {
-    $("#legend-container").toggle("slide", { direction: "left" }, 200);
+    $("#legend-container").toggle("slide", { direction: "down" }, 200);
   }
+
 
 
   // init map
   map = initMap();
   var titleLayer = initTitleLayer();
+
   L.control
     .zoom({
       position: "bottomright"
@@ -333,8 +337,6 @@ function initTitleLayer() {
   return L.tileLayer(
     "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
     {
-      attribution:
-        'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: "mapbox.streets",
       accessToken: mapbox_public_key
