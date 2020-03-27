@@ -428,7 +428,7 @@ function markerOnClick() {
   div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Contact Information</div>`;
   div += '<div class="property-details-group">';
   if (property.phone) {
-    div += `<div>Phone: <a href="tel:+${property.phone}" ${property.phone}</a></div>`;
+    div += `<div>Phone: <a href="tel:+${property.phone}"> ${property.phone}</a></div>`;
   }
   if (property.email) {
     div += `<div>Email: <a href="mailto:${property.email}"> ${property.email}</a></div>`;
