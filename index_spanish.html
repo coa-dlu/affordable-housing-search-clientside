@@ -3,6 +3,8 @@
         <title>Affordable Housing Austin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
         <!-- Latest compiled and minified CSS (bootstrap) -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -19,7 +21,7 @@
         <script src="https://use.fontawesome.com/186244fe4f.js"></script>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
         <link rel="stylesheet" href="Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -46,10 +48,8 @@
         integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
         crossorigin=""></script>
         <script src="Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
-
         <!-- ponyfill to allow css variables in IE11 -->
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-
 
         <!-- search files -->
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
@@ -61,59 +61,65 @@
     <body>
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
 
-        <div class="top-header" >
-             <h4 class="top-header-title">Affordable Housing Austin</h4>
+        <div class="top-header" style='display: none;'>
+            <a href="" style='text-decoration: none;'><h4 class="top-header-title">Affordable Housing Austin</h4></a>
         </div>
 
         <!-- The Modal -->
         <div id="no-results-modal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">
-                  <span class="close">&times;</span>
-                  <p>Sorry, no results were found.</p>
-                  <button id='search-again'>Try another search</button>
+                <span class="close">&times;</span>
+                <p>Sorry, no results were found.</p>
                 </div>
 
         </div>
         <div id='search-container'>
-            <div style='display: flex; justify-content: center; margin-top: 70px;'>
-                <div id='search-direct'><a href="index_spanish.html">Espa&ntilde;ol</a></div>
+            <div class="top-header">
+                <a href="" style='text-decoration: none;'><h4 class="top-header-title"><i class="fa fa-home"> &nbsp;</i>Affordable Housing Austin</h4></a>
+            </div>
+
+            <div style='display: flex; justify-content: center;margin-top: 70px;''>
+                <div id='search-direct'><a href="index.html">English</a></div>
             </div>
 
             <div id='options-wizard'>
                 <div class='justify-center' style='margin-top: 20px;'>
                     <div>
                         <div class='justify-center'>
-                            <span class='options-wizard-question-text justify-center'>What is your household's yearly income?</span>
+                            <span class='options-wizard-question-text justify-center'>¿Cuál es el ingreso anual de su hogar?</span>
                         </div>
                         <div class='justify-center' style='margin-top: 10px;'>
-                            <input type='number' id='yearly-income-input' min='0' style='font-size: 18px; height: 30; width: 270px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46" onchange="this.value = parseFloat(this.value).toFixed(2);" placeholder="$">
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div class='justify-center' style='margin-top: 10px;'>
-                    <div>
-                        <div class='justify-center'>
-                            <span class='options-wizard-question-text justify-center'>How many people are in your household?</span>
-                        </div>
-                        <div class='justify-center' style='margin-top: 10px;'>
-                            <input type='number' min='1' id='household-size' style='font-size: 18px; height: 30; width: 270px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            <input type='number' id='yearly-income-input' min='0' style='font-size: 18px; height: 30; width: 250px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46" onchange="this.value = parseFloat(this.value).toFixed(2);" placeholder="$">
                         </div>
                     </div>
                 </div>
 
+                <br/>
+                <div class='justify-center' style='margin-top: 10px;'>
+                    <div>
+                        <div class='justify-center'>
+                            <span class='options-wizard-question-text justify-center'>¿Cuántas personas viven en su hogar?</span>
+                        </div>
+                        <div class='justify-center' style='margin-top: 10px;'>
+                            <input type='number' min='1' id='household-size' style='font-size: 18px; height: 30; width: 250px;' onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class='justify-center' style='margin-top: 30px;'>
                     <div class='justify-center'>
-                        <label class="container">I have a Housing Choice Voucher
+                        <label class="container">Tengo un cupón de elección de vivienda
                           <input type="checkbox" id="select-voucher"  value="YES">
                           <span class="checkmark"></span>
                         </label>
                     </div>
                 </div>
+
                 <div class='justify-center' style='margin-top: 30px;'>
                     <div class='justify-center'>
-                        <label class="container" style="font-size: 12px; margin-top:30px;">I accept the <a href="#" onclick="showterms();">Terms and Conditions</a>
+                        <label class="container" style="font-size: 12px; margin-top:30px;"> Acepto los &nbsp; <a href="#" onclick="showterms();">Términos y Condiciones</a>
                             <input type="checkbox"  id="accept_terms"  value="YES">
                             <span class="checkmark"></span>
                         </label>
@@ -123,36 +129,39 @@
                     <div class='justify-center'>
                         <div>
                             <div class='justify-center' style='margin-top: 20px;'>
-                                <button class='done-btn' id='done-btn' disabled>Find matching properties</button>
+                                <button class='done-btn' id='done-btn' disabled>Búsqueda</button>
                             </div>
 
                             <div class='justify-center' style='margin-top: 40px;'>
-                            <a href="#" class="skip-link">Show me all affordable housing properties in Austin</a>
+                            <a href="#" class="skip-link">Muéstrame todas las propiedades de vivienda asequible en Austin</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <!-- search text and Disclaimer -->
-            <div class="bottom-footer" style='height: 0%; display: none;'>
-                <span class='bottom-footer-text' style="float: right;">
-                    <button id='hide-bottom-footer'> &times;</button>
-                </span>
-                <div>&nbsp;</div>
-                <h4>&nbsp;</h4>
-                <div  class='bottom-footer-text'>
-                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a> . Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
-                    <br/><br/>
-                    Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data.
-                </div>
-            </div>
         </div>
 
-        <div id='map-legend-banner'>
+        <!-------search text and Disclaimer --------- -->
+        <div class="bottom-footer" style='height: 0%; display: none;'>
+            <span class='bottom-footer-text' style="float: right;"><button id='hide-bottom-footer'>&times;</button> </span>
+            <div>&nbsp;</div>
+            <h4>&nbsp;</h4>
+            <div  class='bottom-footer-text'>
+                La Herramienta de Búsqueda de Vivienda Económica contiene una lista de todas las viviendas económicas de alquiler de ingresos limitados dentro de la Ciudad de Austin. Esto incluye unidades de ingresos limitados de agencias gubernamentales (Autoridad de Vivienda de la Ciudad de Austin, Vivienda y Desarrollo Comunitario, Autoridad de Vivienda del Condado de Travis y el Departamento de Vivienda y Asuntos Comunitarios de Texas) y algunas propiedades con tasa de mercado que aceptan un gran número de vales del programa Housing Choice. La herramienta de búsqueda mostrará las unidades de vivienda que se correspondan al ingreso del hogar y el tamaño de la familia del futuro inquilino de acuerdo con el Departamento de Vivienda y Desarrollo Urbano <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a>. Cada propiedad también tiene información detallada que ayuda a los futuros inquilinos a encontrar la vivienda que satisfaga mejor sus necesidades.
+                <br/><br/>
+
+                Relevo de responsabilidad: Esta herramienta todavía está en construcción. Se están llenando los vacíos de información y se continuarán añadiendo propiedades nuevas. No se hace ninguna aseveración con respecto a la validez de los datos.
+
+            </div>
+            <div>&nbsp;</div>
+        </div>
+
+        <div id='property-info'>
+        </div>
+
+        <div id='map-legend-banner' style='display: none'>
             <span style='margin-top: 28px; margin-left: 5px; display: block;'>
-                Map Legend
+                MAP LEGEND
             </span>
         </div>
 
@@ -160,7 +169,7 @@
         </div>
 
 
-        <div id='legend-container'>
+        <div id='legend-container' style='height: 0%; display: none;'>
             <button style='margin-top: 40px;' id='cancel-map-legend'>x</button>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: green; margin-left: 50px;'>
@@ -188,8 +197,4 @@
             </div>
         </div>
     </body>
-
-
-
-
 </html>
