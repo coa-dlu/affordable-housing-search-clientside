@@ -404,20 +404,20 @@ function markerOnClick() {
   var div = "";
   div += `
     <div style='margin-top: 20px;'>
-        <button id='show-more'>Show housing details</button>
+        <button id='show-more'>Mostrar detalles de la vivienda</button>
         <button id='cancel-btn'>x</button>
     </div>
     `;
 
   if (property.has_waitlist) {
-    div += `<div style='font-size: 14px; color:red; padding:10px;'> &nbsp;&nbsp; &#9888; This property has a waitlist</div>`;
+    div += `<div style='font-size: 14px; color:red; padding:10px;'> &nbsp;&nbsp; &#9888; Esta propiedad tiene una lista de espera </div>`;
   } else {
     div += `<div style='font-size: 14px; padding:10px;'>&nbsp;</div>`;
   }
   //div += `<br/>`;
 
   if (property.accepts_section_8) {
-    div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS Housing Choice</div>`;
+    div += `<div class='waitlist-flag' style='font-size: 12px;'>ACEPTA Housing Choice</div>`;
   }
 
   div += '<div id="property-details">';
@@ -425,178 +425,178 @@ function markerOnClick() {
   div += `<div style='font-size: 15px;'>${property.address} ${property.city}, ${property.state} ${property.zipcode}</div>`;
 
   div += '<div class="property-details-container">';
-  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Contact Information</div>`;
+  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Información de contacto</div>`;
   div += '<div class="property-details-group">';
   if (property.phone) {
-    div += `<div>Phone: ${property.phone}</div>`;
+    div += `<div>Teléfono: ${property.phone}</div>`;
   }
   if (property.email) {
-    div += `<div>Email: ${property.email}</div>`;
+    div += `<div>Correo electrónico: ${property.email}</div>`;
   }
   if (property.website) {
-    div += `<div>Website: <a href=${property.website} target="_blank">${property.website}</a></div>`;
+    div += `<div>Sitio web: <a href=${property.website} target="_blank">${property.website}</a></div>`;
   }
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
-  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Communities Served</div>`;
+  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Comunidades servidas</div>`;
   div += '<div class="property-details-group">';
   if (property.community_disabled) {
-    div += `<div>Physically Disabled Only</div>`;
+    div += `<div>Físicamente discapacitados solamente</div>`;
   }
   if (property.community_domestic_abuse_survivor) {
-    div += `<div>Domestic Abuse Survivor Only</div>`;
+    div += `<div>Sobrevivientes de abuso doméstico solamente</div>`;
   }
   if (property.community_elderly) {
-    div += `<div>Elderly Only</div>`;
+    div += `<div>Adultos mayores solamente</div>`;
   }
   if (property.community_mental) {
-    div += `<div>Mentally Disabled Only</div>`;
+    div += `<div>Mentalmente discapacitados solamente</div>`;
   }
   if (property.community_military) {
-    div += `<div>Military Only</div>`;
+    div += `<div>Militares solamente</div>`;
   }
   if (property.community_served_descriptions) {
-    div += `<div>Other Info: ${property.community_served_descriptions}</div>`;
+    div += `<div>Otra información: ${property.community_served_descriptions}</div>`;
   }
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
-  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Affordability Information</div>`;
+  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Información de accesibilidad económica</div>`;
   div += '<div class="property-details-group">';
   if (property.num_units_mfi_30) {
-    div += `<div>MFI 30: ${property.num_units_mfi_30} Units</div>`;
+    div += `<div>MFI 30: ${property.num_units_mfi_30} Unidades</div>`;
   }
   if (property.num_units_mfi_40) {
-    div += `<div>MFI 40: ${property.num_units_mfi_40} Units</div>`;
+    div += `<div>MFI 40: ${property.num_units_mfi_40} Unidades</div>`;
   }
   if (property.num_units_mfi_50) {
-    div += `<div>MFI 50: ${property.num_units_mfi_50} Units</div>`;
+    div += `<div>MFI 50: ${property.num_units_mfi_50} Unidades</div>`;
   }
   if (property.num_units_mfi_60) {
-    div += `<div>MFI 60: ${property.num_units_mfi_60} Units</div>`;
+    div += `<div>MFI 60: ${property.num_units_mfi_60} Unidades</div>`;
   }
   if (property.num_units_mfi_65) {
-    div += `<div>MFI 65: ${property.num_units_mfi_65} Units</div>`;
+    div += `<div>MFI 65: ${property.num_units_mfi_65} Unidades</div>`;
   }
   if (property.num_units_mfi_70) {
-    div += `<div>MFI 70: ${property.num_units_mfi_70} Units</div>`;
+    div += `<div>MFI 70: ${property.num_units_mfi_70} Unidades</div>`;
   }
   if (property.num_units_mfi_80) {
-    div += `<div>MFI 80: ${property.num_units_mfi_80} Units</div>`;
+    div += `<div>MFI 80: ${property.num_units_mfi_80} Unidades</div>`;
   }
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
-  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Acceptance Criteria</div>`;
+  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Criterios de aceptación</div>`;
   div += '<div class="property-details-group">';
   if (property.broken_lease == "no") {
-    div += `<div>No, does not accept broken lease history</div>`;
+    div += `<div>No, no acepta historia de rompimiento de contrato de alquiler</div>`;
   } else if (property.broken_lease == "yes") {
-    div += `<div>Yes, does accept broken lease history</div>`;
+    div += `<div>Sí, acepta historia de rompimiento de contrato de alquiler</div>`;
   } else if (property.broken_lease == "depends") {
-    div += `<div>Broken lease history is accepted in some cases</div>`;
+    div += `<div>Acepta historia de rompimiento de contrato de alquiler en algunos casos</div>`;
     if (property.broken_lease_criteria) {
-      div += `<div>Other broken lease critiera: ${property.broken_lease_criteria}</div>`;
+      div += `<div>Otros criterios de rompimiento de alquiler: ${property.broken_lease_criteria}</div>`;
     }
   }
   if (property.eviction_history == "no") {
-    div += `<div>No, does not accept eviction history</div>`;
+    div += `<div>No, no acepta historia de desalojo</div>`;
   } else if (property.eviction_history == "yes") {
-    div += `<div>Yes, does accept eviction history</div>`;
+    div += `<div>Sí, acepta historia de desalojo</div>`;
   } else if (property.eviction_history == "depends") {
-    div += `<div>Eviction history accepted in some cases</div>`;
+    div += `<div>Acepta historia de rompimiento de desalojo en algunos casos</div>`;
     if (property.eviction_history_criteria) {
-      div += `<div>Other eviction history critiera: ${property.eviction_history_criteria}</div>`;
+      div += `<div>Otros criterios de historia de desalojo: ${property.eviction_history_criteria}</div>`;
     }
   }
   if (property.criminal_history == "no") {
-    div += `<div>No, does not accept criminal history</div>`;
+    div += `<div>No, no acepta antecedentes penales</div>`;
   } else if (property.criminal_history == "yes") {
-    div += `<div>Yes, does accept criminal history</div>`;
+    div += `<div>Sí, acepta antecedentes penales</div>`;
   } else if (property.criminal_history == "depends") {
-    div += `<div>Criminal history accepted in some cases</div>`;
+    div += `<div>Acepta antecedentes penales en algunos casos</div>`;
     if (property.criminal_history_criteria) {
-      div += `<div>Other criminal history critiera: ${property.criminal_history_criteria}</div>`;
+      div += `<div>Otros criterios de antecedentes penales: ${property.criminal_history_criteria}</div>`;
     }
   }
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
-  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Amenities</div>`;
+  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Servicios</div>`;
   div += '<div class="property-details-group">';
   if (property.allows_pet == "yes") {
-    div += `<div>Yes, pets are allowed</div>`;
+    div += `<div>Sí, se aceptan mascotas</div>`;
   } else if (property.allows_pet == "no") {
-    div += `<div>No, pets are not allowed</div>`;
+    div += `<div>No, no se aceptan mascotas</div>`;
   }
   if (property.pet_other) {
-    div += `<div>Other pet info: ${property.pet_other}</div>`;
+    div += `<div>Otra información sobre mascotas: ${property.pet_other}</div>`;
   }
   if (property.has_air_conditioning == 1) {
-    div += `<div>Air Conditioning</div>`;
+    div += `<div>Aire acondicionado</div>`;
   } else if (property.has_air_conditioning == 0) {
-    div += `<div>No Air Conditioning</div>`;
+    div += `<div>No hay aire acondicionado</div>`;
   }
   if (property.has_ceiling_fans == 1) {
-    div += `<div>Ceiling Fans</div>`;
+    div += `<div>Ventiladores de techo</div>`;
   } else if (property.has_ceiling_fans == 0) {
-    div += `<div>No Ceiling Fans</div>`;
+    div += `<div>No hay ventiladores de techo</div>`;
   }
   if (property.wd_unit == 1) {
-    div += `<div>Washer Dryer In Unit</div>`;
+    div += `<div>Lavadora y secadora en la unidad</div>`;
   } else if (property.wd_unit == 0) {
-    div += `<div>No Washer Dryer In Unit</div>`;
+    div += `<div>No hay conexiones para lavadora y secadora</div>`;
   }
   if (property.wd_hookups == 1) {
-    div += `<div>Washer Dryer Hookups</div>`;
+    div += `<div>Conexiones para lavadora y secadora</div>`;
   } else if (property.wd_hookups == 0) {
-    div += `<div>No Washer Dryer Hookups</div>`;
+    div += `<div>No hay conexiones para lavadora y secadora</div>`;
   }
   if (property.wd_onsite == 1) {
-    div += `<div>Washer Dryer Onsite</div>`;
+    div += `<div>Lavadora y secadora en el edificio</div>`;
   } else if (property.wd_onsite == 0) {
-    div += `<div>No Washer Dryer Onsite</div>`;
+    div += `<div>No hay lavadora y secadora en el edificio</div>`;
   }
   if (property.wd_other) {
-    div += `<div>Other Washer / Dryer info: ${property.wd_other}</div>`;
+    div += `<div>Otra información sobre lavadora / secadora: ${property.wd_other}</div>`;
   }
   if (property.has_off_street_parking == 1) {
-    div += `<div>Has Off Street Parking</div>`;
+    div += `<div>Tiene estacionamiento privado</div>`;
   } else if (property.has_off_street_parking == 0) {
-    div += `<div>No Off Street Parking</div>`;
+    div += `<div>No tiene estacionamiento privado</div>`;
   }
   if (property.security) {
-    div += `<div>Security Information: ${property.security}</div>`;
+    div += `<div>Información sobre seguridad: ${property.security}</div>`;
   }
   if (property.has_pool == 1) {
-    div += `<div>Yes Pool</div>`;
+    div += `<div>Sí piscina</div>`;
   } else if (property.has_pool == 0) {
-    div += `<div>No Pool</div>`;
+    div += `<div>No piscina</div>`;
   }
   if (property.has_playground == 1) {
-    div += `<div>Yes Playground</div>`;
+    div += `<div>Sí parque infantil</div>`;
   } else if (property.has_playgound == 0) {
-    div += `<div>No Playground</div>`;
+    div += `<div>No parque infantil</div>`;
   }
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
-  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Schools</div>`;
+  div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Escuelas</div>`;
   div += '<div class="property-details-group">';
   if (property.elementary_school) {
-    div += `<div>Elementary School: ${property.elementary_school}</div>`;
+    div += `<div>Escuela primaria: ${property.elementary_school}</div>`;
   }
   if (property.middle_school) {
-    div += `<div>Middle School: ${property.middle_school}</div>`;
+    div += `<div>Escuela intermedia: ${property.middle_school}</div>`;
   }
   if (property.high_school) {
-    div += `<div>High School: ${property.high_school}</div>`;
+    div += `<div>Escuela secundaria: ${property.high_school}</div>`;
   }
   div += "</div>";
   div += "</div>";
@@ -624,12 +624,12 @@ function markerOnClick() {
 
   // TODO: check that this isn't adding too many handlers
   $("#show-more").click(function() {
-    if ($("#show-more").text() == "Show housing details") {
+    if ($("#show-more").text() == "Mostrar detalles de la vivienda") {
       $("#property-info").animate({ height: "80%" }, 300);
-      $("#show-more").text("Hide details");
+      $("#show-more").text("Esconder detalles");
     } else {
       $("#property-info").animate({ height: "30%" }, 300);
-      $("#show-more").text("Show housing details");
+      $("#show-more").text("Mostrar detalles de la vivienda");
     }
   });
 
@@ -637,7 +637,7 @@ function markerOnClick() {
     $("#property-info").animate({ height: "0%" }, 300, function() {
       $("#property-info").hide();
     });
-    $("#show-more").text("Hide details");
+    $("#show-more").text("Esconder detalles");
   });
 
   $(".property-details-header").click(function(e) {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>Affordable Housing Austin</title>
+        <title>Viviendas económicas en Austin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -55,29 +55,27 @@
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
         <script type="text/javascript" language="javascript" src="mapbox_public_key.js"></script>
         <script type="text/javascript" language="javascript" src="mfi.js"></script>
-        <script type="text/javascript" language="javascript" src="search_script.js"></script>
+        <script type="text/javascript" language="javascript" src="search_script_sp.js"></script>
     </head>
 
     <body>
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
 
-        <div class="top-header" style='display: none;'>
-            <a href="" style='text-decoration: none;'><h4 class="top-header-title">Affordable Housing Austin</h4></a>
+        <div class="top-header" >
+             <h4 class="top-header-title">Viviendas económicas en Austin</h4>
         </div>
 
         <!-- The Modal -->
         <div id="no-results-modal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Sorry, no results were found.</p>
+                  <span class="close">&times;</span>
+                  <p>Lo sentimos, no se encontró ningún resultado.</p>
+                  <button id='search-again'>Intente otra búsqueda</button>
                 </div>
 
         </div>
         <div id='search-container'>
-            <div class="top-header">
-                <a href="" style='text-decoration: none;'><h4 class="top-header-title"><i class="fa fa-home"> &nbsp;</i>Affordable Housing Austin</h4></a>
-            </div>
 
             <div style='display: flex; justify-content: center;margin-top: 70px;''>
                 <div id='search-direct'><a href="index.html">English</a></div>
@@ -139,29 +137,25 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-------search text and Disclaimer --------- -->
-        <div class="bottom-footer" style='height: 0%; display: none;'>
-            <span class='bottom-footer-text' style="float: right;"><button id='hide-bottom-footer'>&times;</button> </span>
-            <div>&nbsp;</div>
-            <h4>&nbsp;</h4>
-            <div  class='bottom-footer-text'>
+            <!-------search text and Disclaimer --------- -->
+            <div class="bottom-footer" style='height: 0%; display: none;'>
+                <span class='bottom-footer-text' style="float: right;"><button id='hide-bottom-footer'>&times;</button> </span>
+                <div>&nbsp;</div>
+                <h4>&nbsp;</h4>
+                <div  class='bottom-footer-text'>
                 La Herramienta de Búsqueda de Vivienda Económica contiene una lista de todas las viviendas económicas de alquiler de ingresos limitados dentro de la Ciudad de Austin. Esto incluye unidades de ingresos limitados de agencias gubernamentales (Autoridad de Vivienda de la Ciudad de Austin, Vivienda y Desarrollo Comunitario, Autoridad de Vivienda del Condado de Travis y el Departamento de Vivienda y Asuntos Comunitarios de Texas) y algunas propiedades con tasa de mercado que aceptan un gran número de vales del programa Housing Choice. La herramienta de búsqueda mostrará las unidades de vivienda que se correspondan al ingreso del hogar y el tamaño de la familia del futuro inquilino de acuerdo con el Departamento de Vivienda y Desarrollo Urbano <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a>. Cada propiedad también tiene información detallada que ayuda a los futuros inquilinos a encontrar la vivienda que satisfaga mejor sus necesidades.
                 <br/><br/>
 
                 Relevo de responsabilidad: Esta herramienta todavía está en construcción. Se están llenando los vacíos de información y se continuarán añadiendo propiedades nuevas. No se hace ninguna aseveración con respecto a la validez de los datos.
 
+                </div>
             </div>
-            <div>&nbsp;</div>
         </div>
 
-        <div id='property-info'>
-        </div>
-
-        <div id='map-legend-banner' style='display: none'>
-            <span style='margin-top: 28px; margin-left: 5px; display: block;'>
-                MAP LEGEND
+        <div id='map-legend-banner'>
+            <span style="font-size: 0.75em;">
+                Leyenda del mapa
             </span>
         </div>
 
@@ -169,31 +163,30 @@
         </div>
 
 
-        <div id='legend-container' style='height: 0%; display: none;'>
-            <button style='margin-top: 40px;' id='cancel-map-legend'>x</button>
+        <div id='legend-container' style="display: none;">
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: green; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Most Affordable: Property fits income level</div>
+                <div style='margin-top: 8px;font-size:11px;'>Más económica: La propiedad se corresponde al nivel de ingresos</div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: orange; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Next Most affordable: Property one income level above</div>
+                <div style='margin-top: 8px;font-size:11px;'>Siguiente más económica: La propiedad está a un nivel de ingresos superior</div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Affordable property</div>
+                <div style='margin-top: 8px;font-size:11px;'>Propiedad económica</div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: red; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Selected property</div>
+                <div style='margin-top: 8px;font-size:11px;'>Propiedad seleccionada</div>
             </div>
         </div>
     </body>
