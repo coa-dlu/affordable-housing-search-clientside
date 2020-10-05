@@ -69,7 +69,7 @@ $(document).ready(function() {
   });
 
   // show the detailed legend initially?
-  // toggleMapLegendBanner();
+   toggleMapLegendBanner();
 
 
 
@@ -82,7 +82,8 @@ $(document).ready(function() {
     //$('#options-wizard-' + optionsWizardNum).hide();
     optionsWizardNum = 1;
     // hide search container
-
+    toggleMapLegendDetail();
+    //toggleMapLegendBanner();
     toggleSearch();
 
     renderMarkers2(map, 0);
@@ -95,6 +96,8 @@ $(document).ready(function() {
     //$('#options-wizard-' + optionsWizardNum).hide();
     //optionsWizardNum = 1;
     // hide search container
+    toggleMapLegendDetail();
+    //toggleMapLegendBanner();
     toggleSearch();
     renderMarkers2(map, 1);
   });

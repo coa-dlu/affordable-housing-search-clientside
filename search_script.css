@@ -42,10 +42,10 @@
     text-align: center;
     padding-top: 21px;
     margin-top: 0px;
-    font-size: 18px;
+    font-size: 22px;
     color: white;
     font-weight: 400;
-    letter-spacing: 1.5;
+    letter-spacing: 2;
 }
 
 .top-header {
@@ -107,8 +107,10 @@ button:disabled, button[disabled]{
 }
 
 .skip-link {
+    color: orangered;
     font-size: 14px;
     margin-top: 20px;
+    margin-bottom: 20px;
     font-weight: 500;
 }
 
@@ -299,6 +301,7 @@ input[type=number]:focus {
     border: 1px solid transparent;
     bottom: 0px;
     right: 0px;
+    opacity: 0.8;
 
 }
 

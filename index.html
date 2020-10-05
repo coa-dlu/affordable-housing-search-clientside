@@ -61,8 +61,10 @@
     <body>
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
 
-        <div class="top-header" >
-             <h4 class="top-header-title">Affordable Housing Austin</h4>
+        <div class="top-header">
+            <div style="text-align: center;">
+                <button style="background-color:var(--coa-color-primary--blue); border: none;" ><h4 class="top-header-title"><i class="fa fa-home" style="font-size:22px;color:white"></i> Affordable Housing Austin</h4></button>
+            </div>
         </div>
 
         <!-- The Modal -->
@@ -125,9 +127,11 @@
                             <div class='justify-center' style='margin-top: 20px;'>
                                 <button class='done-btn' id='done-btn' disabled>Find matching properties</button>
                             </div>
-
-                            <div class='justify-center' style='margin-top: 40px;'>
+                            <div class='justify-center' style='margin-top: 30px;'>
                             <a href="#" class="skip-link">Show me all affordable housing properties in Austin</a>
+                            </div>
+                            <div class='justify-center' style='margin-bottom: 15px;'>
+                                <button style='background-color: white;'><a href="" style="text-decoration: none;">New Search</a></button> 
                             </div>
                         </div>
                     </div>
@@ -151,7 +155,7 @@
         </div>
 
         <div id='map-legend-banner'>
-            <span>
+            <span style="margin-left:0.75em;">
                 Map Legend
             </span>
         </div>
@@ -160,18 +164,21 @@
         </div>
 
 
-        <div id='legend-container' style="display: none;">
+        <div id='legend-container' style="display: none">
+            <div style='margin-top: 20px;'>
+                <button id='cancel-btn'>x</button>
+            </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: green; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Most Affordable: Property fits income level</div>
+                <span style='margin-top: 8px;font-size:14px;'>Most Affordable: Property fits income level</span>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: orange; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Next Most affordable: Property one income level above</div>
+                <div style='margin-top: 8px;font-size:14px;;padding-right: 15px;'>Next Most affordable: Property one income level above</div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
@@ -183,7 +190,7 @@
                 <div class='tear' style='background-color: red; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Selected property</div>
+                <div style='margin-top: 8px;font-size:14px;;padding-bottom: 20px;'>Selected property</div>
             </div>
         </div>
     </body>

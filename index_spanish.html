@@ -60,9 +60,11 @@
 
     <body>
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
-
-        <div class="top-header" >
-             <h4 class="top-header-title">Viviendas económicas en Austin</h4>
+        
+        <div class="top-header">
+            <div style="text-align: center;">
+                <button style="background-color:var(--coa-color-primary--blue); border: none;" ><h4 class="top-header-title"><i class="fa fa-home" style="font-size:22px;color:white"></i> Viviendas económicas en Austin</h4></button>
+            </div>
         </div>
 
         <!-- The Modal -->
@@ -130,8 +132,11 @@
                                 <button class='done-btn' id='done-btn' disabled>Búsqueda</button>
                             </div>
 
-                            <div class='justify-center' style='margin-top: 40px;'>
+                            <div class='justify-center' style='margin-top: 30px;'>
                             <a href="#" class="skip-link">Muéstrame todas las propiedades de vivienda asequible en Austin</a>
+                            </div>
+                            <div class='justify-center' style='margin-bottom: 15px;'>
+                                <button style='background-color: white;'><a href="" style="text-decoration: none;">New Search</a></button> 
                             </div>
                         </div>
                     </div>
@@ -154,7 +159,7 @@
         </div>
 
         <div id='map-legend-banner'>
-            <span style="font-size: 0.75em;">
+            <span style="font-size: 0.75em; margin-left:0.5em;">
                 Leyenda del mapa
             </span>
         </div>
@@ -164,6 +169,9 @@
 
 
         <div id='legend-container' style="display: none;">
+            <div style='margin-top: 20px;'>
+                <button id='cancel-btn'>x</button>
+            </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: green; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
@@ -174,7 +182,7 @@
                 <div class='tear' style='background-color: orange; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:11px;'>Siguiente más económica: La propiedad está a un nivel de ingresos superior</div>
+                <div style='margin-top: 8px;font-size:11px; padding-right: 15px;'>Siguiente más económica: La propiedad está a un nivel de ingresos superior</div>
             </div>
             <div style='margin-left: 50px;'>
                 <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
@@ -186,7 +194,7 @@
                 <div class='tear' style='background-color: red; margin-left: 50px;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:11px;'>Propiedad seleccionada</div>
+                <div style='margin-top: 8px;font-size:11px;padding-bottom: 20px;'>Propiedad seleccionada</div>
             </div>
         </div>
     </body>
