@@ -40,12 +40,12 @@
 
 .top-header-title {
     text-align: center;
-    padding-top: 21px;
+    padding-top: 20px;
     margin-top: 0px;
-    font-size: 18px;
+    font-size: 22px;
     color: white;
-    font-weight: 400;
-    letter-spacing: 1.5;
+    font-weight: 500;
+    letter-spacing: 2;
 }
 
 .top-header {
@@ -107,19 +107,27 @@ button:disabled, button[disabled]{
 }
 
 .skip-link {
+    background-color: white;
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    color: #2196F3;
     font-size: 14px;
     margin-top: 20px;
+    margin-bottom: 20px;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .skip-link:link {
     padding: 1px 14px;
     text-align: center;
     display: inline-block;
+    text-decoration: none;
 }
 
 .skip-link:hover{
-    color: purple;
+    color: #14395a;
+    text-decoration: none;
 }
 
 #options-wizard {
@@ -299,6 +307,7 @@ input[type=number]:focus {
     border: 1px solid transparent;
     bottom: 0px;
     right: 0px;
+    opacity: 0.8;
 
 }
 
