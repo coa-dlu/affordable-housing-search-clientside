@@ -336,12 +336,27 @@ function initMap() {
   return mymap;
 }
 
+/*
 function initTitleLayer() {
   return L.tileLayer(
     "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
     {
       maxZoom: 18,
       id: "mapbox.streets",
+      accessToken: mapbox_public_key
+    }
+  );
+}*/
+
+
+function initTitleLayer() {
+  return L.tileLayer(
+    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', 
+    {
+      tileSize: 512,
+      maxZoom: 18,
+      zoomOffset: -1,
+      id: 'mapbox/streets-v11',
       accessToken: mapbox_public_key
     }
   );
