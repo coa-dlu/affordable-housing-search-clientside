@@ -23,6 +23,11 @@ function getMFILevel(yearlyIncome, householdSize) {
       break;
     }
   }
+  
+  if (Math.floor(yearlyIncome) == yearlyIncome) {
+     yearlyIncome = Math.floor(yearlyIncome)
+  }
+
   if (size < 1 || income < yearlyIncome) {
     var mfi = 200;
   } else if (income === 0) {
@@ -183,6 +188,7 @@ function getAllProperties() {
 function renderMarkers2(map, range) {
   let size = userOptions["household-size"];
   let mfiLevel = getMFILevel(userOptions.income, size);
+  console.log('mfi:' + mfiLevel);
   if (mfiLevel === 200) {
     var mfiLevel2 = 200;
   } else {
