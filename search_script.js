@@ -76,16 +76,7 @@ $(document).ready(function() {
   // show the detailed legend initially?
    toggleMapLegendBanner();
 
-
-
-
-
-  // TODO; what is optionsWizardNum for? I don't ever see it not be 1
-  // its also defined but not refrenced anywhere
-  var optionsWizardNum = 1;
   $(".done-btn").click(function() {
-    //$('#options-wizard-' + optionsWizardNum).hide();
-    optionsWizardNum = 1;
     // hide search container
     toggleMapLegendDetail();
     //toggleMapLegendBanner();
@@ -93,13 +84,13 @@ $(document).ready(function() {
 
     renderMarkers2(map, 0);
   });
+
   $("#search-again").click(function() {
     toggleSearch();
     $("#no-results-modal").hide();
   })
+
   $(".skip-link").click(function() {
-    //$('#options-wizard-' + optionsWizardNum).hide();
-    //optionsWizardNum = 1;
     // hide search container
     toggleMapLegendDetail();
     //toggleMapLegendBanner();
@@ -121,8 +112,6 @@ $(document).ready(function() {
     $("#legend-container").toggle("slide", { direction: "down" }, 200);
   }
 
-
-
   // init map
   map = initMap();
   var titleLayer = initTitleLayer();
@@ -141,6 +130,14 @@ $(document).ready(function() {
   $("#hide-bottom-footer").click(function() {
     $(".bottom-footer").hide();
     $(".bottom-footer").animate({ height: "0px" }, 300);
+  });
+
+  $("#wheelchair").click(function(e) {
+    if (document.getElementById("wheelchair").checked) {
+      userOptions["ADA"] = "YES";
+    } else {
+      userOptions["ADA"] = "NO";
+    }
   });
 
   $("#select-voucher").click(function(e) {
@@ -204,6 +201,14 @@ function renderMarkers2(map, range) {
       var property = properties[pr];
       var x = "num_units_mfi_" + tempMFILevel;
       var y = "num_units_mfi_" + tempMFILevel2;
+      //Wheelchair checked. Shows only community_disabled properties. Pass everything else.
+      if (userOptions.ADA === "YES") {
+        if (property.community_disabled !== 1) {
+          continue; // skip this property. no need to check futher.
+        }
+      }
+
+      //Passed ADA criteria. Now consider voucher
       if (userOptions.section8 === "YES") {
         //visitor has voucher. show all properties that accept voucher and has higher than their MFI level units
         if (parseInt(property[x]) > 0) {
@@ -217,7 +222,7 @@ function renderMarkers2(map, range) {
               var z = "num_units_mfi_" + allMfi[l];
               if (parseInt(property[z]) > 0) {
                 mfiPropertyMatches.push(property.id);
-                break;
+                continue;
               }
             }
           }
@@ -247,10 +252,17 @@ function renderMarkers2(map, range) {
     } else {
       tempMFILevel = allMfiLevels[tempMFILevelIndex];
     }
-  } else if (userOptions.section8 === "YES") {
+  } else if (userOptions.section8 || userOptions.ADA) {//mfi is 0. no income level entered.
     for (var pr in properties) {
       var property = properties[pr];
-      if (property.accepts_section_8 === 1) {
+      //Wheelchair checked. Shows only community_disabled properties. Pass everything else.
+      if (userOptions.section8 && userOptions.ADA) {
+        if (property.community_disabled && property.accepts_section_8) {
+          mfiPropertyMatches.push(property.id);
+        }
+      } else if (userOptions.ADA === "YES" && property.community_disabled) {
+          mfiPropertyMatches.push(property.id);
+      } else if (userOptions.section8 && property.accepts_section_8) {
         mfiPropertyMatches.push(property.id);
       }
     }
@@ -265,7 +277,7 @@ function renderMarkers2(map, range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
+  if (!range && (mfiPropertyMatches.length || mfiPropertyUpperMatches.length)) {
     for (var property of propertiesList) {
       if (_.contains(mfiPropertyMatches, property.id)) {
         var marker = L.marker(
@@ -293,14 +305,42 @@ function renderMarkers2(map, range) {
         numSection8Units = numSection8Units + 1;
       }
     }
-  } else if (range) {
-    //"show all" button
+  } else if (range) { //"show all" button
     for (var property of propertiesList) {
-      var marker = L.marker(
-        [parseFloat(property.lat), parseFloat(property.longitude)],
-        { icon: assignMarker("blue") }
-      );
-      properties[property.id].color = "blue";
+      if (userOptions.section8 && userOptions.ADA) {console.log('here');
+        if (property.community_disabled && property.accepts_section_8) {
+          var marker = L.marker(
+            [parseFloat(property.lat), parseFloat(property.longitude)],
+            { icon: assignMarker("green") }
+          );
+          properties[property.id].color = "green";
+        } else {
+          var marker = L.marker(
+            [parseFloat(property.lat), parseFloat(property.longitude)],
+            { icon: assignMarker("blue") }
+          );
+          properties[property.id].color = "blue";
+        }
+      } else if (userOptions.ADA === "YES" && property.community_disabled) {
+        var marker = L.marker(
+          [parseFloat(property.lat), parseFloat(property.longitude)],
+          { icon: assignMarker("green") }
+        );
+        properties[property.id].color = "green";
+      } else if (userOptions.section8 && property.accepts_section_8) {
+        var marker = L.marker(
+          [parseFloat(property.lat), parseFloat(property.longitude)],
+          { icon: assignMarker("green") }
+        );
+        properties[property.id].color = "green";
+      } else {
+        var marker = L.marker(
+          [parseFloat(property.lat), parseFloat(property.longitude)],
+          { icon: assignMarker("blue") }
+        );
+        properties[property.id].color = "blue";
+      }
+      //properties[property.id].color = "blue";
       marker.markerID = property.id;
       marker.on("click", markerOnClick);
       markers.addLayer(marker);
@@ -326,7 +366,7 @@ function renderMarkers2(map, range) {
         modal.style.display = "none";
       }
     };
-  }
+  } 
   map.addLayer(markers);
 }
 
@@ -341,19 +381,6 @@ function initMap() {
   );
   return mymap;
 }
-
-/*
-function initTitleLayer() {
-  return L.tileLayer(
-    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-    {
-      maxZoom: 18,
-      id: "mapbox.streets",
-      accessToken: mapbox_public_key
-    }
-  );
-}*/
-
 
 function initTitleLayer() {
   return L.tileLayer(
