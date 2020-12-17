@@ -194,6 +194,7 @@ function renderMarkers2(map, range) {
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
   let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
+  // Generate property list based on search criteria
   if (mfiLevel) {
     let tempMFILevel = mfiLevel;
     let tempMFILevel2 = mfiLevel2;
@@ -210,12 +211,10 @@ function renderMarkers2(map, range) {
 
       //Passed ADA criteria. Now consider voucher
       if (userOptions.section8 === "YES") {
-        //visitor has voucher. show all properties that accept voucher and has higher than their MFI level units
-        if (parseInt(property[x]) > 0) {
-          //matching units
+        //visitor has voucher. show places with vouchers that has units in higher MFI levels in green
+        if (parseInt(property[x]) > 0) { //matching units
           mfiPropertyMatches.push(property.id);
-        } else if (property.accepts_section_8 === 1) {
-          //no units in current level but  property accepts voucher
+        } else if (property.accepts_section_8 === 1) {//no units in current level but property accepts voucher
           let allMfi = [40, 50, 60, 65, 80];
           for (l in allMfi) {
             if (allMfi[l] > tempMFILevel) {
@@ -226,13 +225,10 @@ function renderMarkers2(map, range) {
               }
             }
           }
-          //show places with vouchers that has unites in higher MFI levels in green
-        } else if (parseInt(property[y]) > 0) {
-          //matching units in upper level
+        } else if (parseInt(property[y]) > 0) { //matching units in upper level
           mfiPropertyUpperMatches.push(property.id);
         }
-      } else {
-        //visitor has no voucher. only show matches and upper level property
+      } else { //visitor has no voucher. only show matches and upper level property
         if (parseInt(property[x]) > 0) {
           mfiPropertyMatches.push(property.id);
         }
@@ -255,8 +251,7 @@ function renderMarkers2(map, range) {
   } else if (userOptions.section8 || userOptions.ADA) {//mfi is 0. no income level entered.
     for (var pr in properties) {
       var property = properties[pr];
-      //Wheelchair checked. Shows only community_disabled properties. Pass everything else.
-      if (userOptions.section8 && userOptions.ADA) {
+      if (userOptions.section8 && userOptions.ADA) { //ADA criteria. Shows only community_disabled properties. Pass everything else.
         if (property.community_disabled && property.accepts_section_8) {
           mfiPropertyMatches.push(property.id);
         }
@@ -277,7 +272,8 @@ function renderMarkers2(map, range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  if (!range && (mfiPropertyMatches.length || mfiPropertyUpperMatches.length)) {
+  //Property list is ready. set icon colors based on search or show all
+  if (!range && (mfiPropertyMatches.length || mfiPropertyUpperMatches.length)) { // search with some result.
     for (var property of propertiesList) {
       if (_.contains(mfiPropertyMatches, property.id)) {
         var marker = L.marker(
@@ -307,7 +303,7 @@ function renderMarkers2(map, range) {
     }
   } else if (range) { //"show all" button
     for (var property of propertiesList) {
-      if (userOptions.section8 && userOptions.ADA) {console.log('here');
+      if (userOptions.section8 && userOptions.ADA) {
         if (property.community_disabled && property.accepts_section_8) {
           var marker = L.marker(
             [parseFloat(property.lat), parseFloat(property.longitude)],
@@ -345,8 +341,7 @@ function renderMarkers2(map, range) {
       marker.on("click", markerOnClick);
       markers.addLayer(marker);
     }
-  } else {
-    //search button with no criteria; show no match message.
+  } else {  //search button with no result; show no match message.
     // Get the modal
     var modal = document.getElementById("no-results-modal");
 
@@ -465,7 +460,6 @@ function markerOnClick() {
   } else {
     div += `<div style='font-size: 14px; padding:10px;'>&nbsp;</div>`;
   }
-  //div += `<br/>`;
 
   if (property.accepts_section_8) {
     div += `<div class='waitlist-flag' style='font-size: 12px;'>ACCEPTS Housing Choice</div>`;
