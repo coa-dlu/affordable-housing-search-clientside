@@ -202,9 +202,9 @@ function renderMarkers2(map, range) {
       var property = properties[pr];
       var x = "num_units_mfi_" + tempMFILevel;
       var y = "num_units_mfi_" + tempMFILevel2;
-      //Wheelchair checked. Shows only community_disabled properties. Pass everything else.
+      //Wheelchair checked. Shows only community_disabled properties and total_accessible_ir_units > 1 properties. Pass everything else.
       if (userOptions.ADA === "YES") {
-        if (property.community_disabled !== 1) {
+        if (property.community_disabled !== 1 && property.total_accessible_ir_units < 1) {
           continue; // skip this property. no need to check futher.
         }
       }
@@ -252,10 +252,10 @@ function renderMarkers2(map, range) {
     for (var pr in properties) {
       var property = properties[pr];
       if (userOptions.section8 && userOptions.ADA) { //ADA criteria. Shows only community_disabled properties. Pass everything else.
-        if (property.community_disabled && property.accepts_section_8) {
+        if ((property.community_disabled || property.total_accessible_ir_units ) && property.accepts_section_8) {
           mfiPropertyMatches.push(property.id);
         }
-      } else if (userOptions.ADA === "YES" && property.community_disabled) {
+      } else if (userOptions.ADA === "YES" && (property.community_disabled ||property.total_accessible_ir_units )) {
           mfiPropertyMatches.push(property.id);
       } else if (userOptions.section8 && property.accepts_section_8) {
         mfiPropertyMatches.push(property.id);
@@ -304,7 +304,7 @@ function renderMarkers2(map, range) {
   } else if (range) { //"show all" button
     for (var property of propertiesList) {
       if (userOptions.section8 && userOptions.ADA) {
-        if (property.community_disabled && property.accepts_section_8) {
+        if ((property.community_disabled || property.total_accessible_ir_units ) && property.accepts_section_8) {
           var marker = L.marker(
             [parseFloat(property.lat), parseFloat(property.longitude)],
             { icon: assignMarker("green") }
@@ -317,7 +317,7 @@ function renderMarkers2(map, range) {
           );
           properties[property.id].color = "blue";
         }
-      } else if (userOptions.ADA === "YES" && property.community_disabled) {
+      } else if (userOptions.ADA === "YES" && (property.community_disabled || property.total_accessible_ir_units)) {
         var marker = L.marker(
           [parseFloat(property.lat), parseFloat(property.longitude)],
           { icon: assignMarker("green") }
@@ -489,6 +489,9 @@ function markerOnClick() {
   div += '<div class="property-details-group">';
   if (property.community_disabled) {
     div += `<div>Physically Disabled Only</div>`;
+  }
+  if (property.total_accessible_ir_units) {
+    div += `<div>Wheelchair Accessible Units: ${property.total_accessible_ir_units} Units</div>`;
   }
   if (property.community_domestic_abuse_survivor) {
     div += `<div>Domestic Abuse Survivor Only</div>`;
