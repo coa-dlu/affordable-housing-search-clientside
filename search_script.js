@@ -481,18 +481,34 @@ function markerOnClick() {
   if (property.website) {
     div += `<div>Website: <a href=${property.website} target="_blank">${property.website}</a></div>`;
   }
+  
+  if (property.community_disabled || property.total_accessible_ir_units) {
+    div += "</div>";
+    div += "</div>";
+
+    div += '<div class="property-details-container">';
+    div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Accessibility Information</div>`;
+    div += '<div class="property-details-group">';
+  if (property.community_disabled) {
+      div += `<div>Physically Disabled Only</div>`;
+  }
+  if (property.total_accessible_ir_units) {
+    div += `<div>Wheelchair Accessible Units: ${property.total_accessible_ir_units} Units</div>`;
+  }
+  }
+
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
   div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Communities Served</div>`;
-  div += '<div class="property-details-group">';
+  div += '<div class="property-details-group">'; /*
   if (property.community_disabled) {
     div += `<div>Physically Disabled Only</div>`;
   }
   if (property.total_accessible_ir_units) {
     div += `<div>Wheelchair Accessible Units: ${property.total_accessible_ir_units} Units</div>`;
-  }
+  }*/
   if (property.community_domestic_abuse_survivor) {
     div += `<div>Domestic Abuse Survivor Only</div>`;
   }
