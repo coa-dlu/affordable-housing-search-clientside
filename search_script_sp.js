@@ -76,16 +76,7 @@ $(document).ready(function() {
   // show the detailed legend initially?
   toggleMapLegendBanner();
 
-
-
-
-
-  // TODO; what is optionsWizardNum for? I don't ever see it not be 1
-  // its also defined but not refrenced anywhere
-  var optionsWizardNum = 1;
   $(".done-btn").click(function() {
-    //$('#options-wizard-' + optionsWizardNum).hide();
-    optionsWizardNum = 1;
     // hide search container
     toggleMapLegendDetail();
     //toggleMapLegendBanner();
@@ -93,13 +84,13 @@ $(document).ready(function() {
 
     renderMarkers2(map, 0);
   });
+
   $("#search-again").click(function() {
     toggleSearch();
     $("#no-results-modal").hide();
   })
+
   $(".skip-link").click(function() {
-    //$('#options-wizard-' + optionsWizardNum).hide();
-    //optionsWizardNum = 1;
     // hide search container
     toggleMapLegendDetail();
     //toggleMapLegendBanner();
@@ -121,8 +112,6 @@ $(document).ready(function() {
     $("#legend-container").toggle("slide", { direction: "down" }, 200);
   }
 
-
-
   // init map
   map = initMap();
   var titleLayer = initTitleLayer();
@@ -141,6 +130,14 @@ $(document).ready(function() {
   $("#hide-bottom-footer").click(function() {
     $(".bottom-footer").hide();
     $(".bottom-footer").animate({ height: "0px" }, 300);
+  });
+
+  $("#wheelchair").click(function(e) {
+    if (document.getElementById("wheelchair").checked) {
+      userOptions["ADA"] = "YES";
+    } else {
+      userOptions["ADA"] = "NO";
+    }
   });
 
   $("#select-voucher").click(function(e) {
@@ -197,6 +194,7 @@ function renderMarkers2(map, range) {
   let mfiPropertyMatches = [];
   let mfiPropertyUpperMatches = [];
   let allMfiLevels = [30, 40, 50, 60, 65, 80, 100, 120, 140];
+  // Generate property list based on search criteria
   if (mfiLevel) {
     let tempMFILevel = mfiLevel;
     let tempMFILevel2 = mfiLevel2;
@@ -204,30 +202,33 @@ function renderMarkers2(map, range) {
       var property = properties[pr];
       var x = "num_units_mfi_" + tempMFILevel;
       var y = "num_units_mfi_" + tempMFILevel2;
+      //Wheelchair checked. Shows only community_disabled properties and total_accessible_ir_units > 1 properties. Pass everything else.
+      if (userOptions.ADA === "YES") {
+        if (property.community_disabled !== 1 && property.total_accessible_ir_units < 1) {
+          continue; // skip this property. no need to check futher.
+        }
+      }
+
+      //Passed ADA criteria. Now consider voucher
       if (userOptions.section8 === "YES") {
-        //visitor has voucher. show all properties that accept voucher and has higher than their MFI level units
-        if (parseInt(property[x]) > 0) {
-          //matching units
+        //visitor has voucher. show places with vouchers that has units in higher MFI levels in green
+        if (parseInt(property[x]) > 0) { //matching units
           mfiPropertyMatches.push(property.id);
-        } else if (property.accepts_section_8 === 1) {
-          //no units in current level but  property accepts voucher
+        } else if (property.accepts_section_8 === 1) {//no units in current level but property accepts voucher
           let allMfi = [40, 50, 60, 65, 80];
           for (l in allMfi) {
             if (allMfi[l] > tempMFILevel) {
               var z = "num_units_mfi_" + allMfi[l];
               if (parseInt(property[z]) > 0) {
                 mfiPropertyMatches.push(property.id);
-                break;
+                continue;
               }
             }
           }
-          //show places with vouchers that has unites in higher MFI levels in green
-        } else if (parseInt(property[y]) > 0) {
-          //matching units in upper level
+        } else if (parseInt(property[y]) > 0) { //matching units in upper level
           mfiPropertyUpperMatches.push(property.id);
         }
-      } else {
-        //visitor has no voucher. only show matches and upper level property
+      } else { //visitor has no voucher. only show matches and upper level property
         if (parseInt(property[x]) > 0) {
           mfiPropertyMatches.push(property.id);
         }
@@ -247,10 +248,16 @@ function renderMarkers2(map, range) {
     } else {
       tempMFILevel = allMfiLevels[tempMFILevelIndex];
     }
-  } else if (userOptions.section8 === "YES") {
+  } else if (userOptions.section8 || userOptions.ADA) {//mfi is 0. no income level entered.
     for (var pr in properties) {
       var property = properties[pr];
-      if (property.accepts_section_8 === 1) {
+      if (userOptions.section8 && userOptions.ADA) { //ADA criteria. Shows only community_disabled properties. Pass everything else.
+        if ((property.community_disabled || property.total_accessible_ir_units ) && property.accepts_section_8) {
+          mfiPropertyMatches.push(property.id);
+        }
+      } else if (userOptions.ADA === "YES" && (property.community_disabled ||property.total_accessible_ir_units )) {
+          mfiPropertyMatches.push(property.id);
+      } else if (userOptions.section8 && property.accepts_section_8) {
         mfiPropertyMatches.push(property.id);
       }
     }
@@ -265,7 +272,8 @@ function renderMarkers2(map, range) {
   var numAvailableAffordableUnits = 0;
   var numSection8Units = 0;
 
-  if (mfiPropertyMatches.length || mfiPropertyUpperMatches.length) {
+  //Property list is ready. set icon colors based on search or show all
+  if (!range && (mfiPropertyMatches.length || mfiPropertyUpperMatches.length)) { // search with some result.
     for (var property of propertiesList) {
       if (_.contains(mfiPropertyMatches, property.id)) {
         var marker = L.marker(
@@ -293,20 +301,47 @@ function renderMarkers2(map, range) {
         numSection8Units = numSection8Units + 1;
       }
     }
-  } else if (range) {
-    //"show all" button
+  } else if (range) { //"show all" button
     for (var property of propertiesList) {
-      var marker = L.marker(
-        [parseFloat(property.lat), parseFloat(property.longitude)],
-        { icon: assignMarker("blue") }
-      );
-      properties[property.id].color = "blue";
+      if (userOptions.section8 && userOptions.ADA) {
+        if ((property.community_disabled || property.total_accessible_ir_units ) && property.accepts_section_8) {
+          var marker = L.marker(
+            [parseFloat(property.lat), parseFloat(property.longitude)],
+            { icon: assignMarker("green") }
+          );
+          properties[property.id].color = "green";
+        } else {
+          var marker = L.marker(
+            [parseFloat(property.lat), parseFloat(property.longitude)],
+            { icon: assignMarker("blue") }
+          );
+          properties[property.id].color = "blue";
+        }
+      } else if (userOptions.ADA === "YES" && (property.community_disabled || property.total_accessible_ir_units)) {
+        var marker = L.marker(
+          [parseFloat(property.lat), parseFloat(property.longitude)],
+          { icon: assignMarker("green") }
+        );
+        properties[property.id].color = "green";
+      } else if (userOptions.section8 && property.accepts_section_8) {
+        var marker = L.marker(
+          [parseFloat(property.lat), parseFloat(property.longitude)],
+          { icon: assignMarker("green") }
+        );
+        properties[property.id].color = "green";
+      } else {
+        var marker = L.marker(
+          [parseFloat(property.lat), parseFloat(property.longitude)],
+          { icon: assignMarker("blue") }
+        );
+        properties[property.id].color = "blue";
+      }
+      //properties[property.id].color = "blue";
       marker.markerID = property.id;
       marker.on("click", markerOnClick);
       markers.addLayer(marker);
     }
-  } else {
-    //search button with no criteria; show no match message.
+  } else {  //search button with no result; show no match message.
     // Get the modal
     var modal = document.getElementById("no-results-modal");
 
@@ -341,19 +376,6 @@ function initMap() {
   );
   return mymap;
 }
-
-/*
-function initTitleLayer() {
-  return L.tileLayer(
-    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-    {
-      maxZoom: 18,
-      id: "mapbox.streets",
-      accessToken: mapbox_public_key
-    }
-  );
-}*/
-
 
 function initTitleLayer() {
   return L.tileLayer(
@@ -438,7 +460,6 @@ function markerOnClick() {
   } else {
     div += `<div style='font-size: 14px; padding:10px;'>&nbsp;</div>`;
   }
-  //div += `<br/>`;
 
   if (property.accepts_section_8) {
     div += `<div class='waitlist-flag' style='font-size: 12px;'>ACEPTA Housing Choice</div>`;
@@ -460,15 +481,31 @@ function markerOnClick() {
   if (property.website) {
     div += `<div>Sitio web: <a href=${property.website} target="_blank">${property.website}</a></div>`;
   }
+  
+  if (property.community_disabled || property.total_accessible_ir_units) {
+    div += "</div>";
+    div += "</div>";
+
+    div += '<div class="property-details-container">';
+    div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Accessibility Information</div>`;
+    div += '<div class="property-details-group">';
+  if (property.community_disabled) {
+      div += `<div>Físicamente discapacitados solamente</div>`;
+  }
+  if (property.total_accessible_ir_units) {
+    div += `<div>Wheelchair Accessible Units: ${property.total_accessible_ir_units} Units</div>`;
+  }
+  }
+
   div += "</div>";
   div += "</div>";
 
   div += '<div class="property-details-container">';
   div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Comunidades servidas</div>`;
-  div += '<div class="property-details-group">';
+  div += '<div class="property-details-group">'; /*
   if (property.community_disabled) {
     div += `<div>Físicamente discapacitados solamente</div>`;
-  }
+  }*/
   if (property.community_domestic_abuse_survivor) {
     div += `<div>Sobrevivientes de abuso doméstico solamente</div>`;
   }

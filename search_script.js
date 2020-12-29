@@ -74,7 +74,7 @@ $(document).ready(function() {
   });
 
   // show the detailed legend initially?
-   toggleMapLegendBanner();
+  toggleMapLegendBanner();
 
   $(".done-btn").click(function() {
     // hide search container
@@ -361,7 +361,7 @@ function renderMarkers2(map, range) {
         modal.style.display = "none";
       }
     };
-  } 
+  }
   map.addLayer(markers);
 }
 
