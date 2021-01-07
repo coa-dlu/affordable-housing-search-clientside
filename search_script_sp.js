@@ -487,13 +487,13 @@ function markerOnClick() {
     div += "</div>";
 
     div += '<div class="property-details-container">';
-    div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Accessibility Information</div>`;
+    div += `<div class='property-details-header'><img class='img-sort img-sort-right' src='/sort-right.png'/><img class='img-sort img-sort-down' src='/sort-down.png'/>Información sobre accesibilidad</div>`;
     div += '<div class="property-details-group">';
   if (property.community_disabled) {
       div += `<div>Físicamente discapacitados solamente</div>`;
   }
   if (property.total_accessible_ir_units) {
-    div += `<div>Wheelchair Accessible Units: ${property.total_accessible_ir_units} Units</div>`;
+    div += `<div>Unidades con acceso para sillas de ruedas: ${property.total_accessible_ir_units}  Unidades</div>`;
   }
   }
 
