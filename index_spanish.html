@@ -48,22 +48,23 @@
         integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
         crossorigin=""></script>
         <script src="Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+
         <!-- ponyfill to allow css variables in IE11 -->
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
 
         <!-- search files -->
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
         <script type="text/javascript" language="javascript" src="mapbox_public_key.js"></script>
-        <script type="text/javascript" language="javascript" src="mfi.js"></script>
+        <script type="text/javascript" language="javascript" src="mfi2020.js"></script>
         <script type="text/javascript" language="javascript" src="search_script_sp.js"></script>
     </head>
 
     <body>
         <div id="mapid" style="height: 100%; width: 100%; position: absolute; z-index: 1"></div>
-        
+
         <div class="top-header">
             <div style="text-align: center;">
-                <button style="background-color:var(--coa-color-primary--blue); border: none;; outline: none;" ><h4 class="top-header-title"><i class="fa fa-home" style="font-size:22px;color:white"></i> Viviendas económicas en Austin</h4></button>
+                <button style="background-color:var(--coa-color-primary--blue); border: none; outline: none;" ><h4 class="top-header-title"><i class="fa fa-home" style="font-size:22px;color:white"></i> Viviendas económicas en Austin</h4></button>
             </div>
         </div>
 
@@ -78,8 +79,7 @@
 
         </div>
         <div id='search-container'>
-
-            <div style='display: flex; justify-content: center;margin-top: 70px;''>
+            <div style='display: flex; justify-content: center; margin-top: 70px;'>
                 <div id='search-direct'><a href="index.html">English</a></div>
             </div>
 
@@ -94,7 +94,6 @@
                         </div>
                     </div>
                 </div>
-
                 <br/>
                 <div class='justify-center' style='margin-top: 10px;'>
                     <div>
@@ -107,17 +106,20 @@
                     </div>
                 </div>
 
-
-                <div class='justify-center' style='margin-top: 30px;'>
-                    <div class='justify-center'>
-                        <label class="container">Tengo un cupón de elección de vivienda
-                          <input type="checkbox" id="select-voucher"  value="YES">
-                          <span class="checkmark"></span>
-                        </label>
-                    </div>
+                <div style='margin-left: 60px;margin-top: 10px;'>
+                    <label class="container"><i class="fa fa-wheelchair" style="font-size:16px;"></i>&nbsp;Acceso para sillas de ruedas
+                    <input type="checkbox" id="wheelchair"  value="YES">
+                    <span class="checkmark"></span>
+                    </label>
                 </div>
 
-                <div class='justify-center' style='margin-top: 30px;'>
+                <div style='margin-left: 60px;margin-top: 10px;'>
+                    <label class="container">Tengo un cupón de elección de vivienda
+                    <input type="checkbox" id="select-voucher"  value="YES">
+                    <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="justify-center" style='margin-top: 30px;'>
                     <div class='justify-center'>
                         <label class="container" style="font-size: 12px; margin-top:30px;"> Acepto los &nbsp; <a href="#" onclick="showterms();">Términos y Condiciones</a>
                             <input type="checkbox"  id="accept_terms"  value="YES">
@@ -128,12 +130,11 @@
                 <div class='justify-center'>
                     <div class='justify-center'>
                         <div>
-                            <div class='justify-center' style='margin-top: 20px;'>
+                            <div class='justify-center' style='margin-top: 10px;'>
                                 <button class='done-btn' id='done-btn' disabled><i class="fa fa-search"></i>&nbsp;Búsqueda</button>
                             </div>
-
                             <div class='justify-center' style='margin-top: 30px;'>
-                                <a href="#" class="skip-link"><i class="fa fa-hand-pointer-o" style="font-size:14px;background-color: #2196F3; color:white; padding: 5px;"></i>&nbsp;Muéstrame todas las propiedades de vivienda asequible en Austin</a>
+                            <a href="#" class="skip-link"><i class="fa fa-hand-pointer-o" style="font-size:14px;background-color: #2196F3; color:white; padding: 5px;"></i>&nbsp;Muéstrame todas las propiedades de vivienda asequible en Austin</a>
                             </div>
                             <div class='justify-center' style='margin-bottom: 15px;'>
                                 <button style='background-color: white;'><a href="" style="text-decoration: none;">Nueva Búsqueda</a></button> 
@@ -143,13 +144,14 @@
                 </div>
             </div>
 
-            <!-------search text and Disclaimer --------- -->
+
+            <!-- search text and Disclaimer -->
             <div class="bottom-footer" style='height: 0%; display: none;'>
                 <span class='bottom-footer-text' style="float: right;"><button id='hide-bottom-footer'>&times;</button> </span>
                 <div>&nbsp;</div>
                 <h4>&nbsp;</h4>
                 <div  class='bottom-footer-text'>
-                La Herramienta de Búsqueda de Vivienda Económica contiene una lista de todas las viviendas económicas de alquiler de ingresos limitados dentro de la Ciudad de Austin. Esto incluye unidades de ingresos limitados de agencias gubernamentales (Autoridad de Vivienda de la Ciudad de Austin, Vivienda y Desarrollo Comunitario, Autoridad de Vivienda del Condado de Travis y el Departamento de Vivienda y Asuntos Comunitarios de Texas) y algunas propiedades con tasa de mercado que aceptan un gran número de vales del programa Housing Choice. La herramienta de búsqueda mostrará las unidades de vivienda que se correspondan al ingreso del hogar y el tamaño de la familia del futuro inquilino de acuerdo con el Departamento de Vivienda y Desarrollo Urbano <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a>. Cada propiedad también tiene información detallada que ayuda a los futuros inquilinos a encontrar la vivienda que satisfaga mejor sus necesidades.
+                La Herramienta de Búsqueda de Vivienda Económica contiene una lista de todas las viviendas económicas de alquiler de ingresos limitados dentro de la Ciudad de Austin. Esto incluye unidades de ingresos limitados de agencias gubernamentales (Autoridad de Vivienda de la Ciudad de Austin, Vivienda y Desarrollo Comunitario, Autoridad de Vivienda del Condado de Travis y el Departamento de Vivienda y Asuntos Comunitarios de Texas) y algunas propiedades con tasa de mercado que aceptan un gran número de vales del programa Housing Choice. La herramienta de búsqueda mostrará las unidades de vivienda que se correspondan al ingreso del hogar y el tamaño de la familia del futuro inquilino de acuerdo con el Departamento de Vivienda y Desarrollo Urbano <a href="http://www.austintexas.gov/sites/default/files/files/Housing/MFI%20Chart%20Effective%20July%201%202020%20(002).pdf" target="new"><span style='color: orange;'>( Link )</span></a>. Cada propiedad también tiene información detallada que ayuda a los futuros inquilinos a encontrar la vivienda que satisfaga mejor sus necesidades.
                 <br/><br/>
 
                 Relevo de responsabilidad: Esta herramienta todavía está en construcción. Se están llenando los vacíos de información y se continuarán añadiendo propiedades nuevas. No se hace ninguna aseveración con respecto a la validez de los datos.
@@ -169,32 +171,32 @@
 
 
         <div id='legend-container' style="display: none;">
-            <div style='margin-top: 20px;'>
-                <button id='cancel-btn'>x</button>
+            <div style='margin-top: 10px;'>
+                <button id='cancel-btn' style='width: 25px; height: 25px;'>x</button>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: green; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: green;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:11px;'>Más económica: La propiedad se corresponde al nivel de ingresos</div>
+                <div style='margin-top: 8px; margin-right: 8px; font-size:12px;'>La mejor propiedad que coincida con sus ingresos</div>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: orange; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: orange;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:11px; padding-right: 15px;'>Siguiente más económica: La propiedad está a un nivel de ingresos superior</div>
+                <div style='margin-top: 8px;font-size:12px;'>Propiedad de mayores ingresos</div>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: #00BFFF;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:11px;'>Propiedad económica</div>
+                <div style='margin-top: 8px;font-size:12px;'>Todas las propiedades</div>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: red; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: red;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:11px;padding-bottom: 20px;'>Propiedad seleccionada</div>
+                <div style='margin-top: 8px;font-size:12px;padding-bottom: 20px;'>Propiedad seleccionada</div>
             </div>
         </div>
     </body>

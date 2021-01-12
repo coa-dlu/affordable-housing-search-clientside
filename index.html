@@ -50,11 +50,10 @@
         <!-- ponyfill to allow css variables in IE11 -->
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
 
-
         <!-- search files -->
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
         <script type="text/javascript" language="javascript" src="mapbox_public_key.js"></script>
-        <script type="text/javascript" language="javascript" src="mfi.js"></script>
+        <script type="text/javascript" language="javascript" src="mfi2020.js"></script>
         <script type="text/javascript" language="javascript" src="search_script.js"></script>
     </head>
 
@@ -105,15 +104,20 @@
                     </div>
                 </div>
 
-                <div class='justify-center' style='margin-top: 30px;'>
-                    <div class='justify-center'>
-                        <label class="container">I have a Housing Choice Voucher
-                          <input type="checkbox" id="select-voucher"  value="YES">
-                          <span class="checkmark"></span>
-                        </label>
-                    </div>
+                <div style='margin-left: 60px;margin-top: 10px;'>
+                    <label class="container"><i class="fa fa-wheelchair" style="font-size:16px;"></i>&nbsp;Wheelchair Accessible
+                    <input type="checkbox" id="wheelchair"  value="YES">
+                    <span class="checkmark"></span>
+                    </label>
                 </div>
-                <div class='justify-center' style='margin-top: 30px;'>
+
+                <div style='margin-left: 60px;margin-top: 10px;'>
+                    <label class="container">I have a Housing Choice Voucher
+                    <input type="checkbox" id="select-voucher"  value="YES">
+                    <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="justify-center" style='margin-top: 30px;'>
                     <div class='justify-center'>
                         <label class="container" style="font-size: 12px; margin-top:30px;">I accept the <a href="#" onclick="showterms();">Terms and Conditions</a>
                             <input type="checkbox"  id="accept_terms"  value="YES">
@@ -124,7 +128,7 @@
                 <div class='justify-center'>
                     <div class='justify-center'>
                         <div>
-                            <div class='justify-center' style='margin-top: 20px;'>
+                            <div class='justify-center' style='margin-top: 10px;'>
                                 <button class='done-btn' id='done-btn' disabled><i class="fa fa-search"></i>&nbsp;Find matching properties</button>
                             </div>
                             <div class='justify-center' style='margin-top: 30px;'>
@@ -141,13 +145,11 @@
 
             <!-- search text and Disclaimer -->
             <div class="bottom-footer" style='height: 0%; display: none;'>
-                <span class='bottom-footer-text' style="float: right;">
-                    <button id='hide-bottom-footer'> &times;</button>
-                </span>
+                <span class='bottom-footer-text' style="float: right;"><button id='hide-bottom-footer'>&times;</button> </span>
                 <div>&nbsp;</div>
                 <h4>&nbsp;</h4>
                 <div  class='bottom-footer-text'>
-                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development <a href="http://www.austintexas.gov/sites/default/files/files/Housing/Copy_of_MFI_Chart_Effective_6-28-2019.pdf" target="new"><span style='color: orange;'>( Link )</span></a> . Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
+                    The Affordable Housing Search Tool contains a listing of all rental income-restricted affordable housing within the City of Austin. This includes income-restricted units from governmental agencies (Housing Authority City of Austin, Neighborhood Housing and Community Development, Housing Authority of Travis County, and the Texas Department of Housing and Community Affairs) and some market-rate properties that accept a large number of Housing Choice Vouchers. The search tool will show housing units that match the prospective tenants household income and household size according to the Department of Housing and Urban Development <a href="http://www.austintexas.gov/sites/default/files/files/Housing/MFI%20Chart%20Effective%20July%201%202020%20(002).pdf" target="new"><span style='color: orange;'>( Link )</span></a> . Each property also has detailed information that helps prospective tenants find housing that best meets their needs.
                     <br/><br/>
                     Disclaimer: This tool is still a work in progress. Data gaps are being filled and new properties will continue to be added. No claims are made about the validity of the data.
                 </div>
@@ -164,38 +166,34 @@
         </div>
 
 
-        <div id='legend-container' style="display: none">
-            <div style='margin-top: 20px;'>
-                <button id='cancel-btn'>x</button>
+        <div id='legend-container' style="display: none;">
+            <div style='margin-top: 10px;'>
+                <button id='cancel-btn' style='width: 25px; height: 25px;'>x</button>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: green; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: green;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <span style='margin-top: 8px;font-size:14px;'>Most Affordable: Property fits income level</span>
+                <span style='margin-top: 8px;margin-right: 8px;font-size:14px;'>Best property match to your income</span>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: orange; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: orange;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;;padding-right: 15px;'>Next Most affordable: Property one income level above</div>
+                <div style='margin-top: 8px;font-size:14px;;padding-right: 15px;'>Higher income property</div>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: #00BFFF; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: #00BFFF;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
-                <div style='margin-top: 8px;font-size:14px;'>Affordable property</div>
+                <div style='margin-top: 8px;font-size:14px;'>All properties</div>
             </div>
-            <div style='margin-left: 50px;'>
-                <div class='tear' style='background-color: red; margin-left: 50px;'>
+            <div style='margin-left: 20px;'>
+                <div class='tear' style='background-color: red;'>
                     <i class="shift-icon glyphicon glyphicon-home icon-white"></i>
                 </div>
                 <div style='margin-top: 8px;font-size:14px;;padding-bottom: 20px;'>Selected property</div>
             </div>
         </div>
     </body>
-
-
-
-
 </html>
