@@ -50,7 +50,6 @@
         <!-- ponyfill to allow css variables in IE11 -->
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
 
-
         <!-- search files -->
         <script type="text/javascript" language="javascript" src="data_hub_api_endpoint.js"></script>
         <script type="text/javascript" language="javascript" src="mapbox_public_key.js"></script>
@@ -105,15 +104,20 @@
                     </div>
                 </div>
 
-                <div class='justify-center' style='margin-top: 30px;'>
-                    <div class='justify-center'>
-                        <label class="container">I have a Housing Choice Voucher
-                          <input type="checkbox" id="select-voucher"  value="YES">
-                          <span class="checkmark"></span>
-                        </label>
-                    </div>
+                <div style='margin-left: 60px;margin-top: 10px;'>
+                    <label class="container"><i class="fa fa-wheelchair" style="font-size:16px;"></i>&nbsp;Wheelchair Accessible
+                    <input type="checkbox" id="wheelchair"  value="YES">
+                    <span class="checkmark"></span>
+                    </label>
                 </div>
-                <div class='justify-center' style='margin-top: 30px;'>
+
+                <div style='margin-left: 60px;margin-top: 10px;'>
+                    <label class="container">I have a Housing Choice Voucher
+                    <input type="checkbox" id="select-voucher"  value="YES">
+                    <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="justify-center" style='margin-top: 30px;'>
                     <div class='justify-center'>
                         <label class="container" style="font-size: 12px; margin-top:30px;">I accept the <a href="#" onclick="showterms();">Terms and Conditions</a>
                             <input type="checkbox"  id="accept_terms"  value="YES">
@@ -124,7 +128,7 @@
                 <div class='justify-center'>
                     <div class='justify-center'>
                         <div>
-                            <div class='justify-center' style='margin-top: 20px;'>
+                            <div class='justify-center' style='margin-top: 10px;'>
                                 <button class='done-btn' id='done-btn' disabled><i class="fa fa-search"></i>&nbsp;Find matching properties</button>
                             </div>
                             <div class='justify-center' style='margin-top: 30px;'>
@@ -141,9 +145,7 @@
 
             <!-- search text and Disclaimer -->
             <div class="bottom-footer" style='height: 0%; display: none;'>
-                <span class='bottom-footer-text' style="float: right;">
-                    <button id='hide-bottom-footer'> &times;</button>
-                </span>
+                <span class='bottom-footer-text' style="float: right;"><button id='hide-bottom-footer'>&times;</button> </span>
                 <div>&nbsp;</div>
                 <h4>&nbsp;</h4>
                 <div  class='bottom-footer-text'>
@@ -164,7 +166,7 @@
         </div>
 
 
-        <div id='legend-container' style="display: none">
+        <div id='legend-container' style="display: none;">
             <div style='margin-top: 10px;'>
                 <button id='cancel-btn' style='width: 25px; height: 25px;'>x</button>
             </div>
@@ -194,8 +196,4 @@
             </div>
         </div>
     </body>
-
-
-
-
 </html>
